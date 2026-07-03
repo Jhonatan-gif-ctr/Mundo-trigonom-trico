@@ -87,7 +87,7 @@
       <header class="topbar">
         <div>
           <h1>Mapa de aventura</h1>
-          <p>Avanza por zonas y niveles. Tu avatar se moverá conforme construyas tu aprendizaje.</p>
+          <p>Elige una zona desbloqueada. Tu avatar marcará el lugar de la ruta donde estás avanzando.</p>
         </div>
         <div class="status">
           <button type="button" id="musicBtnMap">Música quiz: apagada</button>
@@ -100,10 +100,30 @@
           <p class="lead">Cada zona se desbloquea al completar la anterior. Dentro de cada zona también avanzarás por niveles.</p>
           <div class="adventure-map" id="adventureMap"></div>
           <div class="map-actions">
-            <button class="primary" id="continueZoneBtn">Entrar a la zona actual</button>
+            <button class="primary" id="continueZoneBtn">Ver niveles de la zona actual</button>
             <button type="button" id="saveProgressMapBtn">Guardar progreso</button>
             <button type="button" id="exportProgressMapBtn">Enviar progreso</button>
           </div>
+        </article>
+      </section>
+    </section>
+
+    <section class="screen hidden" id="levelMapScreen">
+      <header class="topbar">
+        <div>
+          <h1 id="levelMapTitle">Mapa de niveles</h1>
+          <p id="levelMapSubtitle">Completa los niveles en orden. Cada punto abre una ventana de actividad.</p>
+        </div>
+        <div class="status">
+          <button type="button" id="backToWorldMapBtn">Mapa general</button>
+          <button type="button" id="openCurrentActivityBtn" class="primary">Entrar al nivel actual</button>
+        </div>
+      </header>
+      <section class="map-layout">
+        <article class="panel map-panel">
+          <h2 id="levelMapZoneName">Zona</h2>
+          <p class="lead" id="levelMapZoneText">Construye, comprueba y comunica lo que descubriste.</p>
+          <div class="level-adventure-map" id="levelAdventureMap"></div>
         </article>
       </section>
     </section>
@@ -115,7 +135,7 @@
           <p id="zoneSubtitle">Razones e identidades trigonométricas</p>
         </div>
         <div class="status">
-          <button type="button" id="mapBtn">Mapa</button>
+          <button type="button" id="mapBtn">Mapa de niveles</button>
           <button type="button" id="musicBtn">Música quiz: apagada</button>
           <span id="studentLabel">Estudiante</span>
           <span id="xpLabel">XP 0</span>

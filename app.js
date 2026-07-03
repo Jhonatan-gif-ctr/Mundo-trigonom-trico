@@ -123,28 +123,29 @@ function withBank() {
   byId.razones.activities = [
     act("raz-b1", "Básico", "fraction", "Construye sen(α)", "Forma sen(α) usando la plantilla de fracción.", { ratio: "sen" }),
     act("raz-b2", "Básico", "fraction", "Construye cos(α)", "Forma cos(α) usando la plantilla de fracción.", { ratio: "cos" }),
-    act("raz-b3", "Básico", "choice", "Elige la razón", "Empareja: hipotenusa como numerador y adyacente como denominador.", { answers: ["sec"], options: ["csc(α)", "sec(α)", "cot(α)"] }),
-    act("raz-i1", "Intermedio", "fraction", "Construye tan(α)", "Forma tan(α) sin usar la hipotenusa.", { ratio: "tan", capacity: "estrategias", ct: "Descomposición" }),
-    act("raz-i2", "Intermedio", "choice", "Reconoce la razón", "Elige la razón formada con adyacente como numerador y opuesto como denominador.", { answers: ["cot"], options: ["tan(α)", "sec(α)", "cot(α)"], capacity: "estrategias" }),
-    act("raz-i3", "Intermedio", "fraction", "Construye csc(α)", "Invierte la razón del seno para construir csc(α).", { ratio: "csc", capacity: "argumenta" }),
-    act("raz-a1", "Avanzado", "fraction", "Construye sec(α)", "Construye sec(α) desde los lados del triángulo.", { ratio: "sec", capacity: "modela", ct: "Abstracción" }),
-    act("raz-a2", "Avanzado", "fraction", "Construye cot(α)", "Construye cot(α) comparando los catetos.", { ratio: "cot", capacity: "modela" }),
-    act("raz-a3", "Avanzado", "text", "Problema de interpretación", "Si una razón compara hipotenusa sobre opuesto, escribe su nombre.", { answers: ["csc", "csc(α)"], capacity: "argumenta", ct: "Generalización" })
+    act("raz-b3", "Básico", "fraction", "Construye tan(α)", "Forma tan(α) sin usar la hipotenusa.", { ratio: "tan", capacity: "estrategias", ct: "Descomposición" }),
+    act("raz-i1", "Intermedio", "fraction", "Construye csc(α)", "Invierte la razón del seno para construir csc(α).", { ratio: "csc", capacity: "modela" }),
+    act("raz-i2", "Intermedio", "fraction", "Construye sec(α)", "Invierte la razón del coseno para formar sec(α).", { ratio: "sec", capacity: "modela" }),
+    act("raz-i3", "Intermedio", "fraction", "Construye cot(α)", "Construye cot(α) comparando los catetos.", { ratio: "cot", capacity: "modela" }),
+    act("raz-a1", "Avanzado", "choice", "Comunica", "Elige la razón formada con adyacente como numerador y opuesto como denominador.", { answers: ["cot"], options: ["tan(α)", "sec(α)", "cot(α)"], capacity: "comunica" }),
+    act("raz-a2", "Avanzado", "text", "Comunica", "Si una razón compara hipotenusa sobre opuesto, escribe su nombre.", { answers: ["csc", "csc(α)", "cosecante"], capacity: "comunica", ct: "Generalización" }),
+    act("raz-a3", "Avanzado", "choice", "Argumenta", "Elige por qué tan(α) no usa hipotenusa.", { answers: ["catetos"], options: ["porque compara los dos catetos", "porque compara hipotenusa y opuesto", "porque siempre vale 1"], capacity: "argumenta", ct: "Abstracción" })
   ];
 
   byId.reciprocas.build = "Construye una razón y luego invierte numerador y denominador. Si el producto de dos razones recíprocas es 1, encontraste la pareja.";
   byId.reciprocas.theory = "Identidades recíprocas: una razón se transforma al intercambiar numerador y denominador.";
-  byId.reciprocas.instructions = "Empareja cada razón con su recíproca. Usa la plantilla cuando debas escribir una fracción vertical y los botones cuando la actividad sea de elección.";
+  byId.reciprocas.type = "triangle";
+  byId.reciprocas.instructions = "Construye el triángulo con los deslizadores. Primero forma una razón con lados; luego invierte la fracción para descubrir su recíproca.";
   byId.reciprocas.activities = [
-    act("rec-b1", "Básico", "fractionText", "Construye csc(α)", "Forma csc(α) como recíproca de sen(α).", { num: ["1"], den: ["sen", "senα", "sen(α)"] }),
-    act("rec-b2", "Básico", "choice", "Empareja recíprocas", "Elige la recíproca de cos(α).", { answers: ["sec"], options: ["csc(α)", "sec(α)", "cot(α)"] }),
-    act("rec-b3", "Básico", "choice", "Empareja recíprocas", "Elige la recíproca de tan(α).", { answers: ["cot"], options: ["sen(α)", "cot(α)", "sec(α)"] }),
-    act("rec-i1", "Intermedio", "fractionText", "Construye sec(α)", "Forma sec(α) como una fracción vertical.", { num: ["1"], den: ["cos", "cosα", "cos(α)"], capacity: "estrategias" }),
-    act("rec-i2", "Intermedio", "text", "Problema numérico", "Si sen(α) vale tres quintos, escribe csc(α) con números.", { answers: ["5/3", "5sobre3"], capacity: "modela" }),
-    act("rec-i3", "Intermedio", "choice", "Juego de inversión", "Si la razón es opuesto sobre hipotenusa, su recíproca es...", { answers: ["csc"], options: ["csc(α)", "cos(α)", "tan(α)"] }),
-    act("rec-a1", "Avanzado", "fractionText", "Construye cot(α)", "Forma cot(α) como recíproca de tan(α).", { num: ["1"], den: ["tan", "tanα", "tan(α)"], capacity: "argumenta" }),
-    act("rec-a2", "Avanzado", "choice", "Detecta equivalencia", "Elige la identidad equivalente a sec(α) · cos(α).", { answers: ["1"], options: ["1", "sen(α)", "tan(α)"], capacity: "argumenta" }),
-    act("rec-a3", "Avanzado", "text", "Generaliza", "Si f(α) y g(α) son recíprocas, ¿qué producto forman?", { answers: ["1", "unidad"], capacity: "argumenta", ct: "Generalización" })
+    act("rec-b1", "Básico", "fraction", "Construye csc(α)", "Desliza los catetos y forma csc(α) con lados del triángulo.", { ratio: "csc", capacity: "modela" }),
+    act("rec-b2", "Básico", "fraction", "Construye sec(α)", "Desliza los catetos y forma sec(α) con lados del triángulo.", { ratio: "sec", capacity: "modela" }),
+    act("rec-b3", "Básico", "fraction", "Construye cot(α)", "Desliza los catetos y forma cot(α) con lados del triángulo.", { ratio: "cot", capacity: "modela" }),
+    act("rec-i1", "Intermedio", "choice", "Empareja recíprocas", "Elige la recíproca de sen(α).", { answers: ["csc"], options: ["csc(α)", "sec(α)", "cot(α)"], capacity: "comunica" }),
+    act("rec-i2", "Intermedio", "choice", "Empareja recíprocas", "Elige la recíproca de cos(α).", { answers: ["sec"], options: ["csc(α)", "sec(α)", "cot(α)"], capacity: "comunica" }),
+    act("rec-i3", "Intermedio", "choice", "Empareja recíprocas", "Elige la recíproca de tan(α).", { answers: ["cot"], options: ["sen(α)", "cot(α)", "sec(α)"], capacity: "comunica" }),
+    act("rec-a1", "Avanzado", "text", "Comunica", "Escribe qué razón se obtiene al invertir sen(α).", { answers: ["csc", "csc(α)", "cosecante"], capacity: "comunica" }),
+    act("rec-a2", "Avanzado", "text", "Argumenta", "Si una razón y su recíproca se multiplican, ¿qué valor se obtiene?", { answers: ["1", "unidad"], capacity: "argumenta" }),
+    act("rec-a3", "Avanzado", "choice", "Generaliza", "Elige la afirmación que representa una identidad recíproca.", { answers: ["sec"], options: ["sec(α) · cos(α) = 1", "sen(α) + csc(α) = 1", "tan(α) - cot(α) = 1"], capacity: "argumenta", ct: "Generalización" })
   ];
 
   byId.cociente.build = "Compara dos razones ya construidas. Al dividir seno entre coseno aparece tangente; al invertir ese cociente aparece cotangente.";
@@ -297,6 +298,12 @@ function normalize(text) {
 
 function normalizeMathText(text) {
   return normalize(text)
+    .replace(/cosecante/g, "csc")
+    .replace(/secante/g, "sec")
+    .replace(/cotangente/g, "cot")
+    .replace(/coseno/g, "cos")
+    .replace(/seno/g, "sen")
+    .replace(/tangente/g, "tan")
     .replace(/\*/g, "")
     .replace(/sqrt\((\d+)\)/g, "√$1")
     .replace(/sqrt(\d+)/g, "√$1")
@@ -412,8 +419,16 @@ function formatDuration(seconds) {
   return rest ? `${minutes} min ${rest} s` : `${minutes} min`;
 }
 
-function avatarSymbol() {
-  return state.avatar === "mujer" ? "♀" : "♂";
+function avatarHtml() {
+  const label = state.avatar === "mujer" ? "Exploradora" : "Explorador";
+  const className = state.avatar === "mujer" ? "avatar-female" : "avatar-male";
+  return `
+    <span class="map-player ${className}" aria-label="${label} en esta posición">
+      <span class="avatar-head"></span>
+      <span class="avatar-body"></span>
+      <small>${label}</small>
+    </span>
+  `;
 }
 
 function ensureAudio() {
@@ -505,17 +520,22 @@ function renderZoneNav() {
 }
 
 function renderMap() {
+  const mapPoints = [
+    [12, 62], [26, 38], [42, 48], [58, 30], [76, 42], [84, 66], [64, 78]
+  ];
   $("mapScoreLabel").textContent = `Puntaje ${score100()}/100`;
   $("adventureMap").innerHTML = zones.map((zone, index) => {
     const locked = !zoneUnlocked(index);
     const done = isZoneDone(zone);
     const current = index === state.currentZone;
+    const [x, y] = mapPoints[index] || [50, 50];
     return `
-      <button class="map-node ${done ? "done" : ""} ${current ? "current" : ""} ${locked ? "locked" : ""}" data-map-zone="${index}" ${locked ? "disabled" : ""}>
+      <button class="map-node ${done ? "done" : ""} ${current ? "current" : ""} ${locked ? "locked" : ""}" style="--x:${x}%;--y:${y}%;" data-map-zone="${index}" ${locked ? "disabled" : ""}>
+        <span class="map-number">${index + 1}</span>
         <strong>${zone.short}</strong>
         <p>${zone.tag}</p>
         <small>${done ? "Completada" : locked ? "Bloqueada" : "Disponible"}</small>
-        ${current ? `<span class="map-avatar">${avatarSymbol()}</span>` : ""}
+        ${current ? avatarHtml() : ""}
       </button>
     `;
   }).join("");
@@ -527,6 +547,43 @@ function renderMap() {
       const firstPending = zones[index].activities.findIndex(activity => !state.completed.has(activity.id));
       state.currentActivity = firstPending >= 0 ? firstPending : 0;
       renderMap();
+      renderLevelMap();
+      show("levelMapScreen");
+    });
+  });
+}
+
+function renderLevelMap() {
+  const zone = currentZone();
+  const levelPoints = [
+    [10, 62], [20, 44], [31, 58], [42, 34], [52, 52], [62, 30], [72, 52], [82, 38], [90, 62]
+  ];
+  $("levelMapTitle").textContent = `Mapa de niveles: ${zone.short}`;
+  $("levelMapZoneName").textContent = zone.title;
+  $("levelMapZoneText").textContent = `${zone.instructions} Las preguntas finales te pedirán comunicar o argumentar lo construido.`;
+  $("levelAdventureMap").innerHTML = zone.activities.map((activity, index) => {
+    const previousDone = index === 0 || state.completed.has(zone.activities[index - 1].id);
+    const locked = !previousDone;
+    const done = state.completed.has(activity.id);
+    const current = index === state.currentActivity;
+    const [x, y] = levelPoints[index] || [50, 50];
+    return `
+      <button class="level-map-node ${done ? "done" : ""} ${current ? "current" : ""} ${locked ? "locked" : ""}" style="--x:${x}%;--y:${y}%;" data-level-map-index="${index}" ${locked ? "disabled" : ""}>
+        <span class="map-number">${index + 1}</span>
+        <strong>${activity.level}</strong>
+        <small>${activity.title}</small>
+        ${current ? avatarHtml() : ""}
+      </button>
+    `;
+  }).join("");
+  document.querySelectorAll("[data-level-map-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const index = Number(button.dataset.levelMapIndex);
+      const previousDone = index === 0 || state.completed.has(zone.activities[index - 1].id);
+      if (!previousDone) return;
+      state.currentActivity = index;
+      renderAll();
+      show("simScreen");
     });
   });
 }
@@ -613,7 +670,7 @@ function renderChallenge() {
 
 function zoneRecordText() {
   const zone = currentZone();
-  if (zone.id === "razones") {
+  if (zone.type === "triangle") {
     return `c² = a² + b²  →  c² = (${exactSide("a")})² + (${exactSide("b")})²  →  c = ${exactHyp()}`;
   }
   return zone.theory;
@@ -694,8 +751,8 @@ function label(ctx, x, y, text, fill, stroke) {
 function renderSliders() {
   const zone = currentZone();
   $("sliders").innerHTML = "";
-  if (zone.id !== "razones") {
-    $("sliders").innerHTML = `<p>Esta zona usa retos de construcción simbólica. Vuelve a la Zona 1 para manipular el triángulo.</p>`;
+  if (!["razones", "reciprocas"].includes(zone.id)) {
+    $("sliders").innerHTML = `<p>Esta zona usa construcción simbólica, emparejamiento y argumentación. El mapa de niveles separa cada reto para evitar saturar la pantalla.</p>`;
     return;
   }
   const defs = [
@@ -818,10 +875,11 @@ function validateActivity() {
         }}]
       );
     } else {
+      const livesText = `${state.zoneLives[zoneId]} vida${state.zoneLives[zoneId] === 1 ? "" : "s"}`;
       showModal(
         "Pista formativa",
         "Ajusta tu razonamiento",
-        `Revisa la construcción, identifica las partes y vuelve a intentar. Te quedan ${state.zoneLives[zoneId]} vidas en esta zona.`,
+        `Revisa la construcción, identifica las partes y vuelve a intentar. Te queda${state.zoneLives[zoneId] === 1 ? "" : "n"} ${livesText} en esta zona.`,
         [{ label: "Volver al reto", primary: true, onClick: () => renderAll() }]
       );
     }
@@ -856,7 +914,8 @@ function advanceActivity() {
           const target = currentZone();
           state.currentActivity = target.activities.findIndex(activity => !state.completed.has(activity.id));
           if (state.currentActivity < 0) state.currentActivity = 0;
-          renderAll();
+          renderLevelMap();
+          show("levelMapScreen");
         }}
       ]
     );
@@ -1202,12 +1261,20 @@ function bindEvents() {
   });
 
   $("continueZoneBtn").addEventListener("click", () => {
-    show("simScreen");
-    renderAll();
+    renderLevelMap();
+    show("levelMapScreen");
   });
-  $("mapBtn").addEventListener("click", () => {
+  $("backToWorldMapBtn").addEventListener("click", () => {
     renderMap();
     show("mapScreen");
+  });
+  $("openCurrentActivityBtn").addEventListener("click", () => {
+    renderAll();
+    show("simScreen");
+  });
+  $("mapBtn").addEventListener("click", () => {
+    renderLevelMap();
+    show("levelMapScreen");
   });
   $("musicBtn").addEventListener("click", toggleMusic);
   $("musicBtnMap").addEventListener("click", toggleMusic);

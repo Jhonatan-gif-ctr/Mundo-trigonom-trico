@@ -205,6 +205,11 @@ h2 { font-size: 1.18rem; }
 .zone-nav button.done { background: var(--green-soft); color: var(--green); }
 .zone-nav button.locked { background: #e5e7eb; color: #6b7280; }
 
+#simScreen .zone-nav,
+#simScreen .level-track {
+  display: none;
+}
+
 .level-track {
   margin: .35rem 1rem 0;
   display: grid;
@@ -232,39 +237,145 @@ h2 { font-size: 1.18rem; }
   min-height: calc(100vh - 130px);
 }
 
-.adventure-map {
+.adventure-map,
+.level-adventure-map {
   position: relative;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1rem;
+  min-height: 470px;
   margin: 1rem 0;
+  overflow: hidden;
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--shadow);
+  background:
+    radial-gradient(ellipse at 18% 35%, #b7f28d 0 14%, transparent 15%),
+    radial-gradient(ellipse at 72% 22%, #b7f28d 0 13%, transparent 14%),
+    radial-gradient(ellipse at 46% 56%, #8fe36f 0 42%, transparent 43%),
+    radial-gradient(ellipse at 52% 58%, #8fd3ff 0 13%, transparent 14%),
+    linear-gradient(#bfe9ff, #dff7ff);
 }
 
-.map-node {
-  position: relative;
-  min-height: 9rem;
+.level-adventure-map {
+  background:
+    radial-gradient(ellipse at 50% 56%, rgba(255, 224, 138, .92) 0 14%, transparent 15%),
+    radial-gradient(ellipse at 47% 54%, #9be27a 0 44%, transparent 45%),
+    linear-gradient(#bfe9ff, #dff7ff);
+}
+
+.adventure-map::before,
+.level-adventure-map::before {
+  content: "";
+  position: absolute;
+  inset: 15% 7%;
+  border: 8px dashed rgba(102, 67, 35, .75);
+  border-radius: 46% 55% 40% 50%;
+  transform: rotate(-8deg);
+  pointer-events: none;
+}
+
+.adventure-map::after,
+.level-adventure-map::after {
+  content: "MUNDO TRIGONOMÉTRICO";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(-8deg);
+  font-weight: 900;
+  color: rgba(16, 33, 63, .16);
+  font-size: clamp(1.6rem, 4vw, 3.2rem);
+  pointer-events: none;
+}
+
+.map-node,
+.level-map-node {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  transform: translate(-50%, -50%);
+  width: 9.4rem;
+  min-height: 6.7rem;
   border: 3px solid var(--ink);
   box-shadow: 5px 5px 0 var(--shadow);
   background: linear-gradient(160deg, #ffffff, #e7f0ff);
   padding: .85rem;
+  border-radius: 12px;
+  text-align: center;
+  z-index: 2;
 }
 
-.map-node.done { background: linear-gradient(160deg, #ffffff, var(--green-soft)); }
-.map-node.current { background: linear-gradient(160deg, #fff7ed, var(--yellow)); }
-.map-node.locked { background: #e5e7eb; color: #6b7280; }
+.level-map-node {
+  width: 8.6rem;
+}
 
-.map-avatar {
+.map-node.done,
+.level-map-node.done { background: linear-gradient(160deg, #ffffff, var(--green-soft)); }
+.map-node.current,
+.level-map-node.current { background: linear-gradient(160deg, #fff7ed, var(--yellow)); }
+.map-node.locked,
+.level-map-node.locked { background: #e5e7eb; color: #6b7280; }
+
+.map-number {
+  display: inline-grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin: -.2rem auto .35rem;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: white;
+  font-weight: 900;
+}
+
+.map-player {
   position: absolute;
-  right: .6rem;
-  bottom: .45rem;
-  font-size: 2.5rem;
-  filter: drop-shadow(3px 3px 0 rgba(16, 33, 63, .18));
-  animation: bounce-avatar 1.5s infinite ease-in-out;
+  right: -.75rem;
+  top: -1.2rem;
+  display: grid;
+  place-items: center;
+  width: 3.7rem;
+  min-height: 4.4rem;
+  z-index: 4;
+  filter: drop-shadow(3px 3px 0 rgba(16, 33, 63, .24));
+  animation: avatar-step 1.25s infinite ease-in-out;
 }
 
-@keyframes bounce-avatar {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+.avatar-head {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: #ffd7aa;
+  z-index: 2;
+}
+
+.avatar-body {
+  width: 2.2rem;
+  height: 1.9rem;
+  margin-top: -.25rem;
+  border: 2px solid var(--ink);
+  border-radius: 1rem 1rem .45rem .45rem;
+  background: var(--blue);
+}
+
+.avatar-female .avatar-body {
+  background: var(--purple);
+}
+
+.avatar-male .avatar-body {
+  background: var(--green);
+}
+
+.map-player small {
+  margin-top: .1rem;
+  padding: .08rem .25rem;
+  border: 1px solid var(--ink);
+  background: #ffffff;
+  font-size: .58rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+@keyframes avatar-step {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-7px) rotate(2deg); }
 }
 
 .map-actions {
