@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mundo Trigonométrico</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="app">
+    <section class="screen login-screen" id="loginScreen">
+      <div class="math-bg" aria-hidden="true"></div>
+      <article class="panel login-card">
+        <p class="eyebrow">Simulador web</p>
+        <h1>MUNDO TRIGONOMÉTRICO</h1>
+        <p class="lead">Construye razones trigonométricas manipulando un triángulo rectángulo.</p>
+
+        <label class="field">
+          <span>Nombre del estudiante</span>
+          <input id="studentName" autocomplete="name" placeholder="Escribe tu nombre">
+        </label>
+
+        <label class="field">
+          <span>Grado o sección</span>
+          <input id="studentGrade" placeholder="Ejemplo: 5.º A">
+        </label>
+
+        <button class="primary" id="enterBtn">Entrar</button>
+      </article>
+    </section>
+
+    <section class="screen hidden" id="welcomeScreen">
+      <article class="panel welcome-card">
+        <p class="eyebrow">Bienvenida</p>
+        <h1 id="welcomeTitle">Bienvenido</h1>
+        <p class="lead">En este simulador vas a observar, modificar, construir y comprobar. Cada zona tendrá sus propias instrucciones.</p>
+
+        <div class="info-grid">
+          <div class="info info-theory"><strong>Teoría</strong><span>Las tarjetas azules muestran relaciones matemáticas.</span></div>
+          <div class="info info-activity"><strong>Actividad</strong><span>Los controles modifican el triángulo y sus valores.</span></div>
+          <div class="info info-challenge"><strong>Reto</strong><span>Completa la razón solicitada para ganar XP.</span></div>
+          <div class="info info-progress"><strong>Progreso</strong><span>Tendrás vidas, tiempo y registro de avance.</span></div>
+        </div>
+
+        <button class="primary" id="startBtn">Comenzar</button>
+      </article>
+    </section>
+
+    <section class="screen hidden" id="simScreen">
+      <header class="topbar">
+        <div>
+          <h1>MUNDO TRIGONOMÉTRICO</h1>
+          <p>Fase 1: razones trigonométricas en el triángulo rectángulo</p>
+        </div>
+        <div class="status">
+          <span id="studentLabel">Estudiante</span>
+          <span id="xpLabel">XP 0</span>
+          <span id="livesLabel">Vidas 5</span>
+          <span id="timeLabel">00:00</span>
+        </div>
+      </header>
+
+      <section class="workspace">
+        <div class="left-scroll">
+          <section class="panel theory-card">
+            <h2>Seis razones trigonométricas respecto a α</h2>
+            <div class="formula-grid">
+              <div class="formula"><span>sen α =</span><span class="frac"><b>opuesto</b><i>hipotenusa</i></span></div>
+              <div class="formula"><span>cos α =</span><span class="frac"><b>adyacente</b><i>hipotenusa</i></span></div>
+              <div class="formula"><span>tan α =</span><span class="frac"><b>opuesto</b><i>adyacente</i></span></div>
+              <div class="formula"><span>csc α =</span><span class="frac"><b>hipotenusa</b><i>opuesto</i></span></div>
+              <div class="formula"><span>sec α =</span><span class="frac"><b>hipotenusa</b><i>adyacente</i></span></div>
+              <div class="formula"><span>cot α =</span><span class="frac"><b>adyacente</b><i>opuesto</i></span></div>
+            </div>
+            <p id="builtLabel">Razones construidas: ninguna</p>
+          </section>
+
+          <section class="panel triangle-card">
+            <h2>Triángulo rectángulo interactivo</h2>
+            <canvas id="triangleCanvas" width="780" height="460" aria-label="Triángulo rectángulo interactivo"></canvas>
+          </section>
+
+          <section class="panel pythagoras-card">
+            <h2>Teorema de Pitágoras</h2>
+            <p id="pythagorasText">c² = a² + b²</p>
+          </section>
+        </div>
+
+        <aside class="right-scroll">
+          <section class="panel instruction-card">
+            <h2>Instrucciones de la zona</h2>
+            <p>Forma los catetos con los deslizadores. Luego escribe el numerador y denominador de la razón solicitada.</p>
+          </section>
+
+          <section class="panel challenge-card">
+            <h2 id="challengeTitle">Forma la razón trigonométrica</h2>
+            <p id="challengeText">Construye una razón.</p>
+
+            <div class="fraction-builder">
+              <label>
+                <span>Numerador</span>
+                <input id="numInput" placeholder="opuesto, a, 3...">
+              </label>
+              <div class="fraction-line"></div>
+              <label>
+                <span>Denominador</span>
+                <input id="denInput" placeholder="hipotenusa, c, 5...">
+              </label>
+            </div>
+
+            <p class="hint">Si pegas texto o números, aparecerán en rojo. Si escribes con el teclado, aparecerán en azul.</p>
+
+            <div class="quick-buttons">
+              <button data-fill="num" data-side="opuesto">↑ opuesto</button>
+              <button data-fill="num" data-side="adyacente">↑ adyacente</button>
+              <button data-fill="num" data-side="hipotenusa">↑ hipotenusa</button>
+              <button data-fill="den" data-side="opuesto">↓ opuesto</button>
+              <button data-fill="den" data-side="adyacente">↓ adyacente</button>
+              <button data-fill="den" data-side="hipotenusa">↓ hipotenusa</button>
+            </div>
+
+            <button class="primary" id="validateBtn">Validar razón</button>
+          </section>
+
+          <section class="panel values-card">
+            <h2>Valores del triángulo</h2>
+            <p id="valuesText"></p>
+          </section>
+
+          <section class="panel sliders-card">
+            <h2>Construye los catetos</h2>
+            <div id="sliders"></div>
+          </section>
+        </aside>
+      </section>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,329 @@
+:root {
+  --ink: #10213f;
+  --muted: #50617b;
+  --paper: #f3fbf8;
+  --panel: #ffffff;
+  --line: #b8d8c5;
+  --blue: #1f5eff;
+  --green: #139f52;
+  --green-soft: #dcfce7;
+  --purple: #7c3aed;
+  --purple-soft: #ede9fe;
+  --red: #dc2626;
+  --red-soft: #fee2e2;
+  --yellow: #ffe08a;
+  --shadow: rgba(16, 33, 63, .18);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+button, input {
+  font: inherit;
+}
+
+button {
+  border: 2px solid var(--ink);
+  background: #e7f0ff;
+  color: var(--ink);
+  padding: .65rem .85rem;
+  box-shadow: 3px 3px 0 var(--shadow);
+  cursor: pointer;
+  font-weight: 700;
+}
+
+button:hover { transform: translate(-1px, -1px); }
+
+.primary {
+  background: var(--yellow);
+}
+
+.hidden { display: none !important; }
+
+.screen {
+  min-height: 100vh;
+}
+
+.login-screen, .welcome-card {
+  display: grid;
+  place-items: center;
+}
+
+.math-bg {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 15% 25%, rgba(31, 94, 255, .12), transparent 18rem),
+    radial-gradient(circle at 85% 35%, rgba(19, 159, 82, .14), transparent 16rem),
+    linear-gradient(90deg, rgba(16, 33, 63, .07) 1px, transparent 1px),
+    linear-gradient(rgba(16, 33, 63, .07) 1px, transparent 1px);
+  background-size: auto, auto, 42px 42px, 42px 42px;
+}
+
+.panel {
+  background: var(--panel);
+  border: 3px solid var(--line);
+  box-shadow: 6px 6px 0 var(--shadow);
+  padding: 1rem;
+}
+
+.login-card, .welcome-card {
+  position: relative;
+  width: min(94vw, 680px);
+}
+
+.eyebrow {
+  margin: 0 0 .25rem;
+  color: var(--muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+h1, h2, p {
+  margin-top: 0;
+}
+
+h1 {
+  font-size: clamp(2rem, 4vw, 3.3rem);
+  line-height: 1;
+}
+
+h2 {
+  font-size: 1.1rem;
+}
+
+.lead {
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.field {
+  display: grid;
+  gap: .35rem;
+  margin: .9rem 0;
+  font-weight: 700;
+}
+
+.field input,
+.fraction-builder input {
+  width: 100%;
+  border: 2px solid var(--ink);
+  padding: .65rem;
+  background: #fff;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .75rem;
+  margin: 1rem 0;
+}
+
+.info {
+  border: 2px solid var(--ink);
+  padding: .75rem;
+  box-shadow: 3px 3px 0 var(--shadow);
+}
+
+.info strong {
+  display: block;
+  margin-bottom: .25rem;
+}
+
+.info-theory { background: #dbeafe; }
+.info-activity { background: #dcfce7; }
+.info-challenge { background: #fde68a; }
+.info-progress { background: #f8fafc; }
+
+.topbar {
+  background: var(--ink);
+  color: white;
+  padding: 1rem 1.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.topbar h1 {
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.topbar p {
+  margin: .2rem 0 0;
+  color: #dbeafe;
+}
+
+.status {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: .75rem;
+  font-weight: 700;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.left-scroll, .right-scroll {
+  max-height: calc(100vh - 120px);
+  overflow: auto;
+  padding: .25rem;
+}
+
+.left-scroll {
+  display: grid;
+  gap: 1rem;
+}
+
+.right-scroll {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+}
+
+.formula-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .7rem;
+}
+
+.formula {
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  color: var(--blue);
+  font-family: "Cambria Math", "Times New Roman", serif;
+  font-weight: 700;
+}
+
+.frac {
+  display: inline-grid;
+  text-align: center;
+  min-width: 7rem;
+}
+
+.frac b {
+  border-bottom: 2px solid currentColor;
+  padding: 0 .25rem .12rem;
+}
+
+.frac i {
+  font-style: normal;
+  padding-top: .12rem;
+}
+
+#triangleCanvas {
+  width: 100%;
+  height: auto;
+  display: block;
+  background:
+    linear-gradient(90deg, rgba(19, 159, 82, .1) 1px, transparent 1px),
+    linear-gradient(rgba(19, 159, 82, .1) 1px, transparent 1px),
+    #fbfffd;
+  background-size: 42px 42px;
+}
+
+.fraction-builder {
+  background: #f8fafc;
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--shadow);
+  padding: .8rem;
+}
+
+.fraction-builder label {
+  display: grid;
+  gap: .25rem;
+  font-weight: 700;
+}
+
+.fraction-line {
+  height: 2px;
+  background: var(--blue);
+  margin: .65rem 0;
+}
+
+.hint {
+  color: var(--muted);
+  font-size: .9rem;
+  margin: .6rem 0;
+}
+
+.typed {
+  color: var(--blue);
+}
+
+.pasted {
+  color: var(--red);
+}
+
+.quick-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .45rem;
+  margin: .7rem 0;
+}
+
+.quick-buttons button {
+  padding: .45rem;
+  font-size: .9rem;
+}
+
+.slider-row {
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--shadow);
+  padding: .45rem;
+  margin: .4rem 0;
+}
+
+.slider-row.opuesto {
+  background: var(--green-soft);
+  color: var(--green);
+}
+
+.slider-row.adyacente {
+  background: var(--purple-soft);
+  color: var(--purple);
+}
+
+.slider-row label {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: .5rem;
+  font-weight: 700;
+}
+
+.slider-row input {
+  width: 100%;
+}
+
+@media (max-width: 920px) {
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+  .left-scroll, .right-scroll {
+    max-height: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .info-grid, .formula-grid, .quick-buttons {
+    grid-template-columns: 1fr;
+  }
+  .topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
