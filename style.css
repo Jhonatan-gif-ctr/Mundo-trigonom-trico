@@ -1,9 +1,9 @@
 :root {
   --ink: #10213f;
   --muted: #50617b;
-  --paper: #f3fbf8;
+  --paper: #eef7f4;
   --panel: #ffffff;
-  --line: #b8d8c5;
+  --line: #9fcab2;
   --blue: #1f5eff;
   --green: #139f52;
   --green-soft: #dcfce7;
@@ -12,7 +12,8 @@
   --red: #dc2626;
   --red-soft: #fee2e2;
   --yellow: #ffe08a;
-  --shadow: rgba(16, 33, 63, .18);
+  --orange: #f97316;
+  --shadow: rgba(16, 33, 63, .22);
 }
 
 * { box-sizing: border-box; }
@@ -21,12 +22,16 @@ body {
   margin: 0;
   font-family: "Segoe UI", Arial, sans-serif;
   color: var(--ink);
-  background: var(--paper);
+  background:
+    radial-gradient(circle at 10% 12%, rgba(31, 94, 255, .12), transparent 18rem),
+    radial-gradient(circle at 90% 35%, rgba(19, 159, 82, .14), transparent 18rem),
+    linear-gradient(90deg, rgba(16, 33, 63, .06) 1px, transparent 1px),
+    linear-gradient(rgba(16, 33, 63, .06) 1px, transparent 1px),
+    var(--paper);
+  background-size: auto, auto, 44px 44px, 44px 44px, auto;
 }
 
-button, input {
-  font: inherit;
-}
+button, input { font: inherit; }
 
 button {
   border: 2px solid var(--ink);
@@ -35,35 +40,30 @@ button {
   padding: .65rem .85rem;
   box-shadow: 3px 3px 0 var(--shadow);
   cursor: pointer;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 button:hover { transform: translate(-1px, -1px); }
+button:disabled { opacity: .55; cursor: not-allowed; transform: none; }
 
-.primary {
-  background: var(--yellow);
-}
-
+.primary { background: var(--yellow); }
 .hidden { display: none !important; }
+.screen { min-height: 100vh; }
 
-.screen {
-  min-height: 100vh;
-}
-
-.login-screen, .welcome-card {
+.login-screen, #teacherLoginScreen, #welcomeScreen {
   display: grid;
   place-items: center;
+  padding: 1rem;
 }
 
 .math-bg {
   position: fixed;
   inset: 0;
+  z-index: -1;
   background:
-    radial-gradient(circle at 15% 25%, rgba(31, 94, 255, .12), transparent 18rem),
-    radial-gradient(circle at 85% 35%, rgba(19, 159, 82, .14), transparent 16rem),
-    linear-gradient(90deg, rgba(16, 33, 63, .07) 1px, transparent 1px),
-    linear-gradient(rgba(16, 33, 63, .07) 1px, transparent 1px);
-  background-size: auto, auto, 42px 42px, 42px 42px;
+    radial-gradient(circle at 18% 25%, rgba(31, 94, 255, .16), transparent 18rem),
+    radial-gradient(circle at 82% 28%, rgba(249, 115, 22, .12), transparent 16rem),
+    linear-gradient(135deg, rgba(16, 33, 63, .08) 25%, transparent 25%) 0 0 / 34px 34px;
 }
 
 .panel {
@@ -74,41 +74,31 @@ button:hover { transform: translate(-1px, -1px); }
 }
 
 .login-card, .welcome-card {
-  position: relative;
-  width: min(94vw, 680px);
+  width: min(94vw, 760px);
 }
 
 .eyebrow {
-  margin: 0 0 .25rem;
+  margin: 0 0 .3rem;
   color: var(--muted);
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: .04em;
 }
 
-h1, h2, p {
-  margin-top: 0;
-}
-
-h1 {
-  font-size: clamp(2rem, 4vw, 3.3rem);
-  line-height: 1;
-}
-
-h2 {
-  font-size: 1.1rem;
-}
+h1, h2, p { margin-top: 0; }
+h1 { font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1; }
+h2 { font-size: 1.18rem; }
 
 .lead {
   color: var(--muted);
-  font-size: 1.05rem;
+  font-size: 1.04rem;
 }
 
 .field {
   display: grid;
   gap: .35rem;
-  margin: .9rem 0;
-  font-weight: 700;
+  margin: .85rem 0;
+  font-weight: 800;
 }
 
 .field input,
@@ -117,6 +107,13 @@ h2 {
   border: 2px solid var(--ink);
   padding: .65rem;
   background: #fff;
+}
+
+.login-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: .65rem;
+  margin-top: 1rem;
 }
 
 .info-grid {
@@ -132,15 +129,23 @@ h2 {
   box-shadow: 3px 3px 0 var(--shadow);
 }
 
-.info strong {
-  display: block;
-  margin-bottom: .25rem;
-}
-
+.info strong { display: block; margin-bottom: .25rem; }
 .info-theory { background: #dbeafe; }
 .info-activity { background: #dcfce7; }
 .info-challenge { background: #fde68a; }
 .info-progress { background: #f8fafc; }
+
+.rules-card {
+  border: 2px solid var(--ink);
+  background: #fff7ed;
+  box-shadow: 4px 4px 0 var(--shadow);
+  padding: .85rem;
+  margin: 1rem 0;
+}
+
+.rules-card p {
+  margin: .45rem 0;
+}
 
 .topbar {
   background: var(--ink);
@@ -166,29 +171,41 @@ h2 {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
-  gap: .75rem;
-  font-weight: 700;
+  gap: .65rem;
+  font-weight: 800;
 }
+
+.zone-nav {
+  display: flex;
+  gap: .6rem;
+  overflow-x: auto;
+  padding: .8rem 1rem .35rem;
+}
+
+.zone-nav button {
+  min-width: 10rem;
+  background: #f8fafc;
+  white-space: normal;
+}
+
+.zone-nav button.active { background: var(--yellow); }
+.zone-nav button.done { background: var(--green-soft); color: var(--green); }
+.zone-nav button.locked { background: #e5e7eb; color: #6b7280; }
 
 .workspace {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 380px;
+  grid-template-columns: minmax(0, 1fr) 390px;
   gap: 1rem;
   padding: 1rem;
 }
 
 .left-scroll, .right-scroll {
-  max-height: calc(100vh - 120px);
+  max-height: calc(100vh - 160px);
   overflow: auto;
   padding: .25rem;
 }
 
-.left-scroll {
-  display: grid;
-  gap: 1rem;
-}
-
-.right-scroll {
+.left-scroll, .right-scroll {
   display: grid;
   align-content: start;
   gap: 1rem;
@@ -206,7 +223,7 @@ h2 {
   gap: .45rem;
   color: var(--blue);
   font-family: "Cambria Math", "Times New Roman", serif;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .frac {
@@ -225,6 +242,22 @@ h2 {
   padding-top: .12rem;
 }
 
+.competency-strip {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .45rem;
+  margin-top: .9rem;
+}
+
+.tag {
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--shadow);
+  padding: .45rem;
+  background: #f8fafc;
+  font-size: .9rem;
+  font-weight: 700;
+}
+
 #triangleCanvas {
   width: 100%;
   height: auto;
@@ -236,6 +269,16 @@ h2 {
   background-size: 42px 42px;
 }
 
+.construct-card {
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--shadow);
+  padding: .75rem;
+  margin-top: .8rem;
+  background: #f8fafc;
+}
+
+.construct-card strong { color: var(--orange); }
+
 .fraction-builder {
   background: #f8fafc;
   border: 2px solid var(--ink);
@@ -246,7 +289,7 @@ h2 {
 .fraction-builder label {
   display: grid;
   gap: .25rem;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .fraction-line {
@@ -255,30 +298,37 @@ h2 {
   margin: .65rem 0;
 }
 
+.answer-field { margin-top: .7rem; }
+
 .hint {
   color: var(--muted);
   font-size: .9rem;
   margin: .6rem 0;
 }
 
-.typed {
-  color: var(--blue);
-}
+.typed { color: var(--blue); }
+.pasted { color: var(--red); }
 
-.pasted {
-  color: var(--red);
-}
-
-.quick-buttons {
+.quick-buttons, .symbol-buttons {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: .45rem;
   margin: .7rem 0;
 }
 
-.quick-buttons button {
+.symbol-buttons {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.quick-buttons button,
+.symbol-buttons button {
   padding: .45rem;
   font-size: .9rem;
+}
+
+.symbol-buttons button {
+  background: #fff7ed;
+  font-family: "Cambria Math", "Times New Roman", serif;
 }
 
 .slider-row {
@@ -288,38 +338,107 @@ h2 {
   margin: .4rem 0;
 }
 
-.slider-row.opuesto {
-  background: var(--green-soft);
-  color: var(--green);
-}
-
-.slider-row.adyacente {
-  background: var(--purple-soft);
-  color: var(--purple);
-}
+.slider-row.opuesto { background: var(--green-soft); color: var(--green); }
+.slider-row.adyacente { background: var(--purple-soft); color: var(--purple); }
 
 .slider-row label {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: .5rem;
-  font-weight: 700;
+  font-weight: 800;
 }
 
-.slider-row input {
+.slider-row input { width: 100%; }
+
+.teacher-layout {
+  padding: 1rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.teacher-tabs {
+  display: flex;
+  gap: .7rem;
+  flex-wrap: wrap;
+}
+
+.table-wrap {
+  overflow: auto;
+  max-height: 58vh;
+  border: 2px solid var(--ink);
+  margin: .8rem 0;
+}
+
+table {
   width: 100%;
+  border-collapse: collapse;
+  background: white;
+  min-width: 760px;
 }
 
-@media (max-width: 920px) {
-  .workspace {
-    grid-template-columns: 1fr;
-  }
-  .left-scroll, .right-scroll {
-    max-height: none;
-  }
+th, td {
+  border: 1px solid #cbd5e1;
+  padding: .45rem;
+  text-align: left;
+  vertical-align: top;
+  font-size: .9rem;
 }
 
-@media (max-width: 620px) {
-  .info-grid, .formula-grid, .quick-buttons {
+th {
+  background: var(--ink);
+  color: white;
+  position: sticky;
+  top: 0;
+}
+
+td input {
+  width: 7rem;
+  border: 2px solid var(--ink);
+  padding: .35rem;
+}
+
+.progress-card button { width: 100%; margin-top: .45rem; }
+
+.modal-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(16, 33, 63, .58);
+}
+
+.modal-card {
+  width: min(92vw, 560px);
+  border: 3px solid var(--ink);
+  background:
+    radial-gradient(circle at 15% 15%, rgba(255, 224, 138, .55), transparent 9rem),
+    #ffffff;
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, .28);
+  padding: 1.25rem;
+}
+
+.modal-card h2 {
+  font-size: 1.65rem;
+  margin-bottom: .45rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: .65rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 960px) {
+  .workspace { grid-template-columns: 1fr; }
+  .left-scroll, .right-scroll { max-height: none; }
+}
+
+@media (max-width: 660px) {
+  .info-grid, .formula-grid, .competency-strip, .quick-buttons, .symbol-buttons {
     grid-template-columns: 1fr;
   }
   .topbar {
