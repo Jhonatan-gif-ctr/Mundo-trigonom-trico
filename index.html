@@ -25,6 +25,14 @@
           <input id="studentGrade" autocomplete="off">
         </label>
 
+        <div class="field">
+          <span>Avatar</span>
+          <div class="avatar-choice">
+            <label><input type="radio" name="avatar" value="varon" checked> Explorador</label>
+            <label><input type="radio" name="avatar" value="mujer"> Exploradora</label>
+          </div>
+        </div>
+
         <div class="login-actions">
           <button class="primary" id="enterBtn">Entrar como estudiante</button>
           <button type="button" id="shareBtn">Compartir enlace</button>
@@ -75,6 +83,31 @@
       </article>
     </section>
 
+    <section class="screen hidden" id="mapScreen">
+      <header class="topbar">
+        <div>
+          <h1>Mapa de aventura</h1>
+          <p>Avanza por zonas y niveles. Tu avatar se moverá conforme construyas tu aprendizaje.</p>
+        </div>
+        <div class="status">
+          <button type="button" id="musicBtnMap">Música quiz: apagada</button>
+          <span id="mapScoreLabel">Puntaje 0/100</span>
+        </div>
+      </header>
+      <section class="map-layout">
+        <article class="panel map-panel">
+          <h2>Ruta trigonométrica</h2>
+          <p class="lead">Cada zona se desbloquea al completar la anterior. Dentro de cada zona también avanzarás por niveles.</p>
+          <div class="adventure-map" id="adventureMap"></div>
+          <div class="map-actions">
+            <button class="primary" id="continueZoneBtn">Entrar a la zona actual</button>
+            <button type="button" id="saveProgressMapBtn">Guardar progreso</button>
+            <button type="button" id="exportProgressMapBtn">Enviar progreso</button>
+          </div>
+        </article>
+      </section>
+    </section>
+
     <section class="screen hidden" id="simScreen">
       <header class="topbar">
         <div>
@@ -82,6 +115,8 @@
           <p id="zoneSubtitle">Razones e identidades trigonométricas</p>
         </div>
         <div class="status">
+          <button type="button" id="mapBtn">Mapa</button>
+          <button type="button" id="musicBtn">Música quiz: apagada</button>
           <span id="studentLabel">Estudiante</span>
           <span id="xpLabel">XP 0</span>
           <span id="livesLabel">Vidas 5</span>
@@ -91,6 +126,7 @@
       </header>
 
       <nav class="zone-nav" id="zoneNav"></nav>
+      <section class="level-track panel" id="levelTrack"></section>
 
       <section class="workspace">
         <div class="left-scroll">
@@ -98,7 +134,6 @@
             <p class="eyebrow" id="zoneTag">Zona</p>
             <h2 id="zoneTitle">Zona</h2>
             <div id="zoneTheory"></div>
-            <div class="competency-strip" id="competencyStrip"></div>
           </section>
 
           <section class="panel activity-card">
@@ -141,6 +176,8 @@
               <span>Respuesta o explicación breve</span>
               <input id="answerInput" autocomplete="off">
             </label>
+
+            <div id="optionBox" class="option-box"></div>
 
             <div class="symbol-buttons">
               <button type="button" data-symbol="√2">Insertar √2</button>
@@ -200,6 +237,7 @@
         <section class="panel" id="databasePanel">
           <h2>Base de datos de interacción</h2>
           <p class="lead">Registra zona, actividad, reto, nivel, intentos, tiempo, XP, vidas, uso de pegado y capacidades trabajadas.</p>
+          <div class="teacher-summary" id="teacherSummary"></div>
           <label class="field">
             <span>Importar progreso enviado por estudiante (.json)</span>
             <input id="importProgressInput" type="file" accept="application/json">

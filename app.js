@@ -1,12 +1,12 @@
 const TEACHER_CODE = "PROFE-TRIGO-2026";
 const PUBLIC_URL = "https://jhonatan-gif-ctr.github.io/Mundo-trigonom-trico/";
-const SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx3JVYQ_ldDd7rv1-LuSrdYlkOhKUzMjlBfk5Y5Pf7DxjScYp8e8vYo8PJ_oWL9BQWoKw/exec";
+const SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxU3uWIJTI9SP2ArxDlG5mT3iPqr1SIchDI_aB-TGtxFXgThpIaeuQCTp3VeEHcGeq5vQ/exec";
 
 const capacities = {
-  traduce: "Traduce datos y condiciones a expresiones algebraicas y gráficas",
-  comunica: "Comunica su comprensión sobre relaciones algebraicas",
-  estrategias: "Usa estrategias y procedimientos para encontrar reglas generales",
-  argumenta: "Argumenta afirmaciones sobre relaciones de cambio y equivalencia"
+  modela: "Modela objetos con formas geométricas y sus transformaciones",
+  comunica: "Comunica su comprensión sobre las formas y relaciones geométricas",
+  estrategias: "Usa estrategias y procedimientos para orientarse en el espacio",
+  argumenta: "Argumenta afirmaciones sobre relaciones geométricas"
 };
 
 const ratioMap = {
@@ -19,12 +19,12 @@ const ratioMap = {
 };
 
 const labels = {
-  sen: "sen α",
-  cos: "cos α",
-  tan: "tan α",
-  csc: "csc α",
-  sec: "sec α",
-  cot: "cot α"
+  sen: "sen(α)",
+  cos: "cos(α)",
+  tan: "tan(α)",
+  csc: "csc(α)",
+  sec: "sec(α)",
+  cot: "cot(α)"
 };
 
 const zones = [
@@ -32,120 +32,208 @@ const zones = [
     id: "razones",
     short: "Razones",
     title: "Zona 1: Razones trigonométricas",
-    tag: "Triángulo rectángulo",
-    instructions: "Construye los catetos con los deslizadores. Identifica opuesto, adyacente e hipotenusa respecto a α. Luego arma la fracción pedida.",
-    build: "Descompón el triángulo: primero ubica α, luego decide qué lado cambia de nombre según ese ángulo y finalmente construye la razón.",
-    theory: "Las seis razones nacen de comparar dos lados del triángulo rectángulo respecto a α.",
+    tag: "Saberes previos",
+    instructions: "Recuerda las seis razones trigonométricas sin recibir la fórmula escrita. Usa el triángulo para formar la razón solicitada.",
+    build: "Observa el triángulo, ubica α y recuerda qué lado se convierte en opuesto, adyacente o hipotenusa.",
+    theory: "Saberes previos: identifica α, reconoce cateto opuesto, cateto adyacente e hipotenusa, y forma razones con una fracción vertical.",
     type: "triangle",
-    activities: [
-      { id: "raz-sen", level: "Básico", kind: "fraction", ratio: "sen", title: "Construye sen α", text: "Forma sen α con los lados del triángulo.", xp: 20, capacity: "comunica", ct: "Descomposición" },
-      { id: "raz-cos", level: "Básico", kind: "fraction", ratio: "cos", title: "Construye cos α", text: "Forma cos α. Recuerda: el valor escrito puede representar un lado si coincide exactamente.", xp: 20, capacity: "comunica", ct: "Abstracción" },
-      { id: "raz-tan", level: "Intermedio", kind: "fraction", ratio: "tan", title: "Construye tan α", text: "Forma tan α sin usar la hipotenusa.", xp: 25, capacity: "estrategias", ct: "Pensamiento algorítmico" },
-      { id: "raz-problema", level: "Avanzado", kind: "text", answers: ["5/4", "c/b", "hipotenusa/adyacente"], title: "Problema: secante", text: "Si a = 3, b = 4 y c = 5, escribe sec α.", xp: 30, capacity: "traduce", ct: "Reconocimiento de patrones" }
-    ]
+    activities: []
   },
   {
     id: "reciprocas",
     short: "Recíprocas",
     title: "Zona 2: Identidades recíprocas",
     tag: "Invertir razones",
-    instructions: "Construye una razón y observa cuál aparece al invertir numerador y denominador.",
-    build: "Si una razón compara A/B, su recíproca compara B/A. Busca pares que se invierten.",
-    theory: "csc α = 1/sen α, sec α = 1/cos α, cot α = 1/tan α.",
+    instructions: "Empareja cada razón con su recíproca y verifica que el producto sea 1.",
+    build: "Construye una razón y luego invierte numerador y denominador.",
+    theory: "Identidades recíprocas: una razón se transforma al intercambiar numerador y denominador.",
     type: "cards",
-    activities: [
-      { id: "rec-csc", level: "Básico", kind: "fractionText", num: ["1"], den: ["sen", "senα", "senx"], title: "Construye csc α", text: "Completa la identidad: csc α = 1 / ?", xp: 20, capacity: "comunica", ct: "Patrones" },
-      { id: "rec-sec", level: "Intermedio", kind: "text", answers: ["1/cos", "1/cosα", "1/cosx"], title: "Juego de parejas", text: "Escribe la pareja recíproca de cos α.", xp: 25, capacity: "estrategias", ct: "Reconocimiento de patrones" },
-      { id: "rec-problema", level: "Avanzado", kind: "text", answers: ["5/3"], title: "Problema numérico", text: "Si sen α = 3/5, ¿cuánto vale csc α?", xp: 30, capacity: "traduce", ct: "Abstracción" }
-    ]
+    activities: []
   },
   {
     id: "cociente",
     short: "Cociente",
     title: "Zona 3: Identidades de cociente",
     tag: "Razones entre razones",
-    instructions: "Relaciona sen, cos, tan y cot. No memorices: divide y simplifica.",
-    build: "Compara sen α y cos α como fracciones; al dividirlas aparece tan α.",
-    theory: "tan α = sen α/cos α y cot α = cos α/sen α.",
+    instructions: "Forma cocientes con la plantilla, empareja expresiones equivalentes y simplifica valores cuando el reto lo pida.",
+    build: "Compara dos razones ya construidas para obtener tangente o cotangente.",
+    theory: "Identidades de cociente: una nueva razón se construye comparando dos razones trigonométricas.",
     type: "cards",
-    activities: [
-      { id: "coc-tan", level: "Básico", kind: "fractionText", num: ["sen", "senα", "senx"], den: ["cos", "cosα", "cosx"], title: "Construye tan α", text: "Completa tan α como cociente de dos razones.", xp: 20, capacity: "comunica", ct: "Descomposición" },
-      { id: "coc-num", level: "Intermedio", kind: "text", answers: ["3/4"], title: "Simplifica", text: "Si sen α = 3/5 y cos α = 4/5, calcula tan α.", xp: 25, capacity: "estrategias", ct: "Pensamiento algorítmico" },
-      { id: "coc-cot", level: "Avanzado", kind: "fractionText", num: ["cos", "cosα", "cosx"], den: ["sen", "senα", "senx"], title: "Generaliza cot α", text: "Construye cot α usando sen α y cos α.", xp: 30, capacity: "argumenta", ct: "Generalización" }
-    ]
+    activities: []
   },
   {
     id: "negativos",
     short: "Negativos",
     title: "Zona 4: Identidades para negativos",
     tag: "Simetrías",
-    instructions: "Observa qué cambia cuando el ángulo pasa de α a -α. Decide si la función conserva o cambia de signo.",
-    build: "En el círculo unitario, x se conserva y y cambia de signo. Por eso cos es par, sen y tan son impares.",
-    theory: "sen(-x) = -sen x, cos(-x) = cos x, tan(-x) = -tan x.",
+    instructions: "Elige, completa o justifica qué sucede cuando el ángulo cambia de α a -α.",
+    build: "Observa la simetría: algunas funciones conservan signo y otras lo cambian.",
+    theory: "Identidades para negativos: se construyen desde la simetría del círculo unitario.",
     type: "unit",
-    activities: [
-      { id: "neg-sen", level: "Básico", kind: "text", answers: ["-senx", "-senα", "-sen"], title: "Simetría del seno", text: "Completa: sen(-x) = ?", xp: 20, capacity: "comunica", ct: "Patrones" },
-      { id: "neg-cos", level: "Intermedio", kind: "text", answers: ["cosx", "cosα", "cos"], title: "Simetría del coseno", text: "Completa: cos(-x) = ?", xp: 25, capacity: "argumenta", ct: "Abstracción" },
-      { id: "neg-reto", level: "Avanzado", kind: "text", answers: ["-tanx", "-tanα", "-tan"], title: "Reto de signo", text: "Si tan x es positiva, ¿cómo se expresa tan(-x)?", xp: 30, capacity: "estrategias", ct: "Pensamiento algorítmico" }
-    ]
+    activities: []
   },
   {
     id: "pitagoricas",
     short: "Pitagóricas",
     title: "Zona 5: Identidades pitagóricas",
     tag: "Construcción desde Pitágoras",
-    instructions: "Parte de c² = a² + b². Divide toda la igualdad por c², b² o a² para construir identidades.",
-    build: "La primera identidad se obtiene al dividir a² + b² = c² entre c²: sen² α + cos² α = 1.",
-    theory: "sen²x + cos²x = 1, tan²x + 1 = sec²x, 1 + cot²x = csc²x.",
+    instructions: "Completa igualdades, elige la transformación adecuada y despeja valores usando fracciones verticales o palabras.",
+    build: "Parte del teorema de Pitágoras y divide toda la igualdad por el cuadrado de un lado.",
+    theory: "Identidades pitagóricas: se construyen transformando una misma igualdad con divisiones equivalentes.",
     type: "cards",
-    activities: [
-      { id: "pit-uno", level: "Básico", kind: "text", answers: ["1"], title: "Construye la primera", text: "Completa: sen²x + cos²x = ?", xp: 25, capacity: "argumenta", ct: "Abstracción" },
-      { id: "pit-sec", level: "Intermedio", kind: "text", answers: ["sec²x", "sec2x", "sec^2x"], title: "Divide por cos²x", text: "Completa: tan²x + 1 = ?", xp: 30, capacity: "estrategias", ct: "Pensamiento algorítmico" },
-      { id: "pit-csc", level: "Avanzado", kind: "text", answers: ["csc²x", "csc2x", "csc^2x"], title: "Divide por sen²x", text: "Completa: 1 + cot²x = ?", xp: 35, capacity: "argumenta", ct: "Generalización" }
-    ]
+    activities: []
   },
   {
     id: "suma",
     short: "Suma",
     title: "Zona 6: Identidades de suma",
     tag: "Composición de ángulos",
-    instructions: "Analiza cómo una función de x + y se construye con funciones de x y de y.",
-    build: "Reconoce el patrón: seno mezcla seno-coseno; coseno conserva productos iguales y cambia signo; tangente usa un cociente.",
-    theory: "sen(x+y)=senx cos y + seny cosx; cos(x+y)=cosx cos y - senx seny; tan(x+y)=(tanx+tany)/(1-tanx tany).",
+    instructions: "Empareja estructuras, completa productos y reconoce signos. Usa α y β con precisión.",
+    build: "Combina dos ángulos y reconoce cómo se mezclan seno, coseno y tangente.",
+    theory: "Identidades de suma: una función de α+β se construye con funciones de α y de β.",
     type: "cards",
-    activities: [
-      { id: "sum-sen", level: "Básico", kind: "text", answers: ["senxcosy+senycosx", "senxcosy+cosxseny"], title: "Arma sen(x+y)", text: "Escribe sen(x+y) sin espacios.", xp: 30, capacity: "comunica", ct: "Patrones" },
-      { id: "sum-cos", level: "Intermedio", kind: "text", answers: ["cosxcosy-senxseny"], title: "Arma cos(x+y)", text: "Escribe cos(x+y) sin espacios.", xp: 35, capacity: "estrategias", ct: "Pensamiento algorítmico" },
-      { id: "sum-tan", level: "Avanzado", kind: "text", answers: ["(tanx+tany)/(1-tanxtany)", "tanx+tany/1-tanxtany"], title: "Reto abstracto", text: "Escribe tan(x+y). Puedes usar / para la fracción.", xp: 40, capacity: "argumenta", ct: "Abstracción" }
-    ]
+    activities: []
   },
   {
     id: "final",
     short: "Reto final",
     title: "Zona 7: Reto final adaptativo",
     tag: "Síntesis",
-    instructions: "Usa tus vidas acumuladas para resolver problemas que mezclan construcción, patrones, algoritmos y argumentación.",
-    build: "El reto final se desbloquea cuando completas las zonas anteriores. Usa tus reservas para sostener intentos difíciles.",
-    theory: "Una identidad se comprende cuando puedes construirla, probarla, usarla y explicar por qué funciona.",
+    instructions: "Resuelve retos integrados. Usa tus vidas acumuladas y revisa cada paso antes de validar.",
+    build: "Integra lo construido en todas las zonas.",
+    theory: "Reto final: una identidad se comprende cuando puedes construirla, aplicarla y justificar su equivalencia.",
     type: "cards",
     final: true,
-    activities: [
-      { id: "fin-juego", level: "Difícil", kind: "text", answers: ["sec²x", "sec2x", "sec^2x"], title: "Juego de rutas", text: "Ruta: tan²x + 1 conduce a...", xp: 45, capacity: "estrategias", ct: "Pensamiento algorítmico" },
-      { id: "fin-problema", level: "Difícil", kind: "text", answers: ["-senx", "-senα"], title: "Problema de simetría", text: "Un punto del círculo cambia de (x,y) a (x,-y). ¿Qué ocurre con sen?", xp: 45, capacity: "traduce", ct: "Abstracción" },
-      { id: "fin-argumenta", level: "Experto", kind: "text", answers: ["patron", "identidad", "equivalencia", "pitagoras"], title: "Argumenta", text: "Explica en una palabra clave por qué sen²x + cos²x = 1.", xp: 50, capacity: "argumenta", ct: "Generalización" }
-    ]
+    activities: []
   }
 ];
 
+function withBank() {
+  const byId = Object.fromEntries(zones.map(zone => [zone.id, zone]));
+  const act = (id, level, kind, title, text, extra = {}) => ({
+    id, level, kind, title, text, xp: level === "Básico" ? 12 : level === "Intermedio" ? 16 : 20,
+    capacity: extra.capacity || "comunica",
+    ct: extra.ct || "Patrones",
+    ...extra
+  });
+
+  byId.razones.build = "Observa el triángulo, ubica α y recuerda qué lado se convierte en opuesto, adyacente o hipotenusa. Aquí activas saberes previos antes de entrar a identidades.";
+  byId.razones.theory = "Saberes previos: identifica α, reconoce cateto opuesto, cateto adyacente e hipotenusa, y forma razones con una fracción vertical.";
+  byId.razones.instructions = "Recuerda las seis razones trigonométricas sin recibir la fórmula escrita. Usa el triángulo para formar la razón solicitada.";
+  byId.razones.activities = [
+    act("raz-b1", "Básico", "fraction", "Construye sen(α)", "Forma sen(α) usando la plantilla de fracción.", { ratio: "sen" }),
+    act("raz-b2", "Básico", "fraction", "Construye cos(α)", "Forma cos(α) usando la plantilla de fracción.", { ratio: "cos" }),
+    act("raz-b3", "Básico", "choice", "Elige la razón", "Empareja: hipotenusa como numerador y adyacente como denominador.", { answers: ["sec"], options: ["csc(α)", "sec(α)", "cot(α)"] }),
+    act("raz-i1", "Intermedio", "fraction", "Construye tan(α)", "Forma tan(α) sin usar la hipotenusa.", { ratio: "tan", capacity: "estrategias", ct: "Descomposición" }),
+    act("raz-i2", "Intermedio", "choice", "Reconoce la razón", "Elige la razón formada con adyacente como numerador y opuesto como denominador.", { answers: ["cot"], options: ["tan(α)", "sec(α)", "cot(α)"], capacity: "estrategias" }),
+    act("raz-i3", "Intermedio", "fraction", "Construye csc(α)", "Invierte la razón del seno para construir csc(α).", { ratio: "csc", capacity: "argumenta" }),
+    act("raz-a1", "Avanzado", "fraction", "Construye sec(α)", "Construye sec(α) desde los lados del triángulo.", { ratio: "sec", capacity: "modela", ct: "Abstracción" }),
+    act("raz-a2", "Avanzado", "fraction", "Construye cot(α)", "Construye cot(α) comparando los catetos.", { ratio: "cot", capacity: "modela" }),
+    act("raz-a3", "Avanzado", "text", "Problema de interpretación", "Si una razón compara hipotenusa sobre opuesto, escribe su nombre.", { answers: ["csc", "csc(α)"], capacity: "argumenta", ct: "Generalización" })
+  ];
+
+  byId.reciprocas.build = "Construye una razón y luego invierte numerador y denominador. Si el producto de dos razones recíprocas es 1, encontraste la pareja.";
+  byId.reciprocas.theory = "Identidades recíprocas: una razón se transforma al intercambiar numerador y denominador.";
+  byId.reciprocas.instructions = "Empareja cada razón con su recíproca. Usa la plantilla cuando debas escribir una fracción vertical y los botones cuando la actividad sea de elección.";
+  byId.reciprocas.activities = [
+    act("rec-b1", "Básico", "fractionText", "Construye csc(α)", "Forma csc(α) como recíproca de sen(α).", { num: ["1"], den: ["sen", "senα", "sen(α)"] }),
+    act("rec-b2", "Básico", "choice", "Empareja recíprocas", "Elige la recíproca de cos(α).", { answers: ["sec"], options: ["csc(α)", "sec(α)", "cot(α)"] }),
+    act("rec-b3", "Básico", "choice", "Empareja recíprocas", "Elige la recíproca de tan(α).", { answers: ["cot"], options: ["sen(α)", "cot(α)", "sec(α)"] }),
+    act("rec-i1", "Intermedio", "fractionText", "Construye sec(α)", "Forma sec(α) como una fracción vertical.", { num: ["1"], den: ["cos", "cosα", "cos(α)"], capacity: "estrategias" }),
+    act("rec-i2", "Intermedio", "text", "Problema numérico", "Si sen(α) vale tres quintos, escribe csc(α) con números.", { answers: ["5/3", "5sobre3"], capacity: "modela" }),
+    act("rec-i3", "Intermedio", "choice", "Juego de inversión", "Si la razón es opuesto sobre hipotenusa, su recíproca es...", { answers: ["csc"], options: ["csc(α)", "cos(α)", "tan(α)"] }),
+    act("rec-a1", "Avanzado", "fractionText", "Construye cot(α)", "Forma cot(α) como recíproca de tan(α).", { num: ["1"], den: ["tan", "tanα", "tan(α)"], capacity: "argumenta" }),
+    act("rec-a2", "Avanzado", "choice", "Detecta equivalencia", "Elige la identidad equivalente a sec(α) · cos(α).", { answers: ["1"], options: ["1", "sen(α)", "tan(α)"], capacity: "argumenta" }),
+    act("rec-a3", "Avanzado", "text", "Generaliza", "Si f(α) y g(α) son recíprocas, ¿qué producto forman?", { answers: ["1", "unidad"], capacity: "argumenta", ct: "Generalización" })
+  ];
+
+  byId.cociente.build = "Compara dos razones ya construidas. Al dividir seno entre coseno aparece tangente; al invertir ese cociente aparece cotangente.";
+  byId.cociente.theory = "Identidades de cociente: una nueva razón se construye comparando dos razones trigonométricas.";
+  byId.cociente.instructions = "Forma cocientes con la plantilla, empareja expresiones equivalentes y simplifica valores cuando el reto lo pida.";
+  byId.cociente.activities = [
+    act("coc-b1", "Básico", "fractionText", "Construye tan(α)", "Usa sen(α) como numerador y cos(α) como denominador.", { num: ["sen", "senα", "sen(α)"], den: ["cos", "cosα", "cos(α)"] }),
+    act("coc-b2", "Básico", "fractionText", "Construye cot(α)", "Usa cos(α) como numerador y sen(α) como denominador.", { num: ["cos", "cosα", "cos(α)"], den: ["sen", "senα", "sen(α)"] }),
+    act("coc-b3", "Básico", "choice", "Empareja cociente", "Elige la identidad construida con sen(α) sobre cos(α).", { answers: ["tan"], options: ["tan(α)", "cot(α)", "sec(α)"] }),
+    act("coc-i1", "Intermedio", "text", "Simplifica", "Si sen(α) vale tres quintos y cos(α) vale cuatro quintos, escribe tan(α).", { answers: ["3/4", "3sobre4"], capacity: "estrategias" }),
+    act("coc-i2", "Intermedio", "choice", "Elige el resultado", "Si tan(α) se invierte, se obtiene...", { answers: ["cot"], options: ["cot(α)", "sec(α)", "csc(α)"], capacity: "argumenta" }),
+    act("coc-i3", "Intermedio", "text", "Reconstruye", "Si cot(α) vale cuatro tercios, escribe tan(α).", { answers: ["3/4", "3sobre4"], capacity: "modela" }),
+    act("coc-a1", "Avanzado", "choice", "Detecta patrón", "Elige la expresión que no necesita hipotenusa.", { answers: ["tan"], options: ["tan(α)", "sen(α)", "cos(α)"], capacity: "argumenta" }),
+    act("coc-a2", "Avanzado", "text", "Argumenta con una palabra", "¿Qué proceso convierte sen(α) y cos(α) en tan(α)?", { answers: ["cociente", "division", "división"], capacity: "argumenta" }),
+    act("coc-a3", "Avanzado", "choice", "Generaliza", "Si cos(α) es cero, el cociente sen(α) sobre cos(α) queda...", { answers: ["no definido"], options: ["no definido", "igual a 1", "igual a 0"], capacity: "argumenta", ct: "Abstracción" })
+  ];
+
+  byId.negativos.build = "Mueve mentalmente α hacia -α y observa la simetría: algunas funciones conservan signo y otras lo cambian.";
+  byId.negativos.theory = "Identidades para negativos: se construyen desde la simetría del círculo unitario.";
+  byId.negativos.instructions = "Elige, completa o justifica qué sucede cuando el ángulo cambia de α a -α. Atiende al signo.";
+  byId.negativos.activities = [
+    act("neg-b1", "Básico", "choice", "Simetría de seno", "Elige la identidad correcta.", { answers: ["-sen"], options: ["sen(-α) = -sen(α)", "sen(-α) = sen(α)", "sen(-α) = cos(α)"] }),
+    act("neg-b2", "Básico", "choice", "Simetría de coseno", "Elige la identidad correcta.", { answers: ["cos"], options: ["cos(-α) = cos(α)", "cos(-α) = -cos(α)", "cos(-α) = sen(α)"] }),
+    act("neg-b3", "Básico", "choice", "Simetría de tangente", "Elige la identidad correcta.", { answers: ["-tan"], options: ["tan(-α) = -tan(α)", "tan(-α) = tan(α)", "tan(-α) = sec(α)"] }),
+    act("neg-i1", "Intermedio", "text", "Completa signo", "Escribe el signo que aparece en sen(-α).", { answers: ["-", "negativo"], capacity: "comunica" }),
+    act("neg-i2", "Intermedio", "choice", "Empareja paridad", "Elige la función par.", { answers: ["cos"], options: ["sen(α)", "cos(α)", "tan(α)"], capacity: "argumenta" }),
+    act("neg-i3", "Intermedio", "choice", "Empareja paridad", "Elige una función impar.", { answers: ["sen"], options: ["sen(α)", "cos(α)", "sec(α)"], capacity: "argumenta" }),
+    act("neg-a1", "Avanzado", "text", "Aplica identidad", "Si sen(α) vale un medio, escribe sen(-α).", { answers: ["-1/2", "-1sobre2"], capacity: "modela" }),
+    act("neg-a2", "Avanzado", "text", "Aplica identidad", "Si cos(α) vale raíz de tres sobre dos, escribe cos(-α).", { answers: ["√3/2", "√3sobre2"], capacity: "modela" }),
+    act("neg-a3", "Avanzado", "choice", "Razona", "Al reflejar respecto del eje horizontal, cambia el signo de...", { answers: ["sen"], options: ["sen(α)", "cos(α)", "1"], capacity: "argumenta" })
+  ];
+
+  byId.pitagoricas.build = "Parte del teorema de Pitágoras y divide toda la igualdad por el cuadrado de un lado. Así aparecen las tres identidades pitagóricas.";
+  byId.pitagoricas.theory = "Identidades pitagóricas: se construyen transformando una misma igualdad con divisiones equivalentes.";
+  byId.pitagoricas.instructions = "Completa igualdades, elige la transformación adecuada y despeja valores usando fracciones verticales o palabras.";
+  byId.pitagoricas.activities = [
+    act("pit-b1", "Básico", "text", "Primera identidad", "Completa: sen²(α) + cos²(α) =", { answers: ["1"] }),
+    act("pit-b2", "Básico", "choice", "Empareja identidad", "Elige la identidad que relaciona tangente y secante.", { answers: ["sec"], options: ["tan²(α) + 1 = sec²(α)", "1 + cot²(α) = csc²(α)", "sen²(α) + cos²(α) = 1"] }),
+    act("pit-b3", "Básico", "choice", "Empareja identidad", "Elige la identidad que relaciona cotangente y cosecante.", { answers: ["csc"], options: ["1 + cot²(α) = csc²(α)", "tan²(α) + 1 = sec²(α)", "sen²(α) + cos²(α) = 1"] }),
+    act("pit-i1", "Intermedio", "text", "Construye sec²(α)", "Completa: tan²(α) + 1 =", { answers: ["sec²α", "sec²(α)", "sec2α", "sec^2α"], capacity: "estrategias" }),
+    act("pit-i2", "Intermedio", "text", "Construye csc²(α)", "Completa: 1 + cot²(α) =", { answers: ["csc²α", "csc²(α)", "csc2α", "csc^2α"], capacity: "estrategias" }),
+    act("pit-i3", "Intermedio", "choice", "Elige transformación", "Para obtener sen²(α)+cos²(α)=1 desde Pitágoras, se divide entre...", { answers: ["c²"], options: ["c²", "a²", "b²"], capacity: "argumenta" }),
+    act("pit-a1", "Avanzado", "text", "Despeja", "Si sen²(α) vale un cuarto, escribe cos²(α).", { answers: ["3/4", "3sobre4"], capacity: "modela" }),
+    act("pit-a2", "Avanzado", "text", "Despeja", "Si tan²(α) vale 8, escribe sec²(α).", { answers: ["9"], capacity: "modela" }),
+    act("pit-a3", "Avanzado", "choice", "Justifica", "La identidad sen²(α)+cos²(α)=1 se construye desde...", { answers: ["pitagoras"], options: ["Pitágoras", "proporcionalidad directa", "suma de ángulos"], capacity: "argumenta" })
+  ];
+
+  byId.suma.build = "Combina dos ángulos y reconoce cómo se mezclan seno, coseno y tangente en una nueva expresión.";
+  byId.suma.theory = "Identidades de suma: una función de α+β se construye con funciones de α y de β.";
+  byId.suma.instructions = "Empareja estructuras, completa productos y reconoce signos. Usa α y β con precisión.";
+  byId.suma.activities = [
+    act("sum-b1", "Básico", "choice", "Estructura de sen(α+β)", "Elige la forma correcta.", { answers: ["sen(α)cos(β)+cos(α)sen(β)"], options: ["sen(α)cos(β)+cos(α)sen(β)", "cos(α)cos(β)-sen(α)sen(β)", "tan(α)+tan(β)"] }),
+    act("sum-b2", "Básico", "choice", "Estructura de cos(α+β)", "Elige la forma correcta.", { answers: ["cos(α)cos(β)-sen(α)sen(β)"], options: ["cos(α)cos(β)-sen(α)sen(β)", "sen(α)cos(β)+cos(α)sen(β)", "tan(α)tan(β)"] }),
+    act("sum-b3", "Básico", "choice", "Signo en cos(α+β)", "En cos(α+β), el signo entre productos es...", { answers: ["-"], options: ["-", "+", "±"] }),
+    act("sum-i1", "Intermedio", "text", "Completa seno", "Escribe el segundo producto de sen(α+β): sen(α)cos(β) + ...", { answers: ["cosαsenβ", "cos(α)sen(β)", "senβcosα"], capacity: "comunica" }),
+    act("sum-i2", "Intermedio", "text", "Completa coseno", "Escribe el segundo producto que se resta en cos(α+β).", { answers: ["senαsenβ", "sen(α)sen(β)"], capacity: "comunica" }),
+    act("sum-i3", "Intermedio", "choice", "Tangente de suma", "En tan(α+β), el denominador contiene...", { answers: ["1-tan"], options: ["1 - tan(α)tan(β)", "1 + sen(α)sen(β)", "cos(α)+cos(β)"], capacity: "estrategias" }),
+    act("sum-a1", "Avanzado", "text", "Caso notable", "Si β = 0, escribe sen(α+0).", { answers: ["senα", "sen(α)"], capacity: "argumenta" }),
+    act("sum-a2", "Avanzado", "choice", "Detecta patrón", "La identidad de seno mezcla...", { answers: ["seno y coseno"], options: ["seno y coseno", "solo seno", "solo tangente"], capacity: "argumenta" }),
+    act("sum-a3", "Avanzado", "text", "Síntesis", "Escribe el denominador de tan(α+β).", { answers: ["1-tanαtanβ", "1-tan(α)tan(β)"], capacity: "argumenta" })
+  ];
+
+  byId.final.build = "Integra lo construido en todas las zonas: razones, recíprocas, cocientes, signos, Pitágoras y suma de ángulos.";
+  byId.final.theory = "Reto final: una identidad se comprende cuando puedes construirla, aplicarla y justificar su equivalencia.";
+  byId.final.instructions = "Resuelve retos integrados. Usa tus vidas acumuladas y revisa cada paso antes de validar.";
+  byId.final.activities = [
+    act("fin-b1", "Básico", "choice", "Ruta 1", "Elige la identidad que nace de dividir Pitágoras entre c².", { answers: ["sen²(α)+cos²(α)=1"], options: ["sen²(α)+cos²(α)=1", "tan²(α)+1=sec²(α)", "1+cot²(α)=csc²(α)"] }),
+    act("fin-b2", "Básico", "choice", "Ruta 2", "Elige una identidad recíproca.", { answers: ["sec"], options: ["sec(α) como recíproca de cos(α)", "tan(α) como recíproca de sen(α)", "cos(α) como recíproca de csc(α)"] }),
+    act("fin-b3", "Básico", "choice", "Ruta 3", "Elige una identidad de cociente.", { answers: ["tan"], options: ["tan(α) se construye con sen(α) sobre cos(α)", "cos(-α)=cos(α)", "sen²(α)+cos²(α)=1"] }),
+    act("fin-i1", "Intermedio", "text", "Integra", "Si cos(α) vale cuatro quintos, escribe sec(α).", { answers: ["5/4", "5sobre4"], capacity: "modela" }),
+    act("fin-i2", "Intermedio", "text", "Integra", "Si tan²(α) vale 3, escribe sec²(α).", { answers: ["4"], capacity: "modela" }),
+    act("fin-i3", "Intermedio", "choice", "Integra", "Si α cambia a -α, la función que no cambia de signo es...", { answers: ["cos"], options: ["cos(α)", "sen(α)", "tan(α)"], capacity: "argumenta" }),
+    act("fin-a1", "Avanzado", "text", "Reto síntesis", "Si sen²(α) vale 9 sobre 25, escribe cos²(α).", { answers: ["16/25", "16sobre25"], capacity: "argumenta" }),
+    act("fin-a2", "Avanzado", "choice", "Reto síntesis", "Elige la ruta que construye csc²(α).", { answers: ["cot"], options: ["1 + cot²(α)", "tan²(α) + 1", "sen²(α)+cos²(α)"], capacity: "argumenta" }),
+    act("fin-a3", "Avanzado", "text", "Reto final", "Escribe una palabra clave que explique por qué una identidad transforma una expresión en otra equivalente.", { answers: ["equivalencia", "identidad", "patron", "patrón"], capacity: "argumenta" })
+  ];
+}
+
+withBank();
+
 const rubric = [
-  ["Fundamentación matemática y curricular", "Coherencia con estándares/currículo", "Contenido alineado con precisión al nivel y competencias curriculares, con progresión lógica"],
-  ["Descomposición y abstracción", "Fragmenta problemas complejos en partes manejables", "El usuario descompone problemas en subproblemas claros e identifica variables relevantes"],
-  ["Reconocimiento de patrones y generalización", "Identifica regularidades y las generaliza", "El simulador exige detectar patrones y formular reglas generales"],
-  ["Pensamiento algorítmico", "Diseña/sigue secuencias lógicas de pasos", "El usuario construye o ajusta reglas, fórmulas o procedimientos"],
-  ["Retroalimentación formativa", "Calidad y oportunidad del feedback", "Retroalimentación inmediata, específica y orientada a corregir razonamiento"],
-  ["Nivel de desafío y adaptabilidad", "Ajuste a diferentes niveles", "Niveles progresivos y reto final con vidas acumuladas"],
-  ["Usabilidad e interfaz", "Claridad visual y facilidad de uso", "Interfaz intuitiva, accesible y con scroll por zonas"],
-  ["Funcionalidad técnica", "Estabilidad y correcto funcionamiento", "Cálculos y simulaciones matemáticamente correctos"]
+  ["Modela formas y relaciones", "Representa triángulos, ángulos, razones e identidades como relaciones geométricas", "Construye modelos coherentes y transforma la representación sin perder significado matemático"],
+  ["Comunica comprensión geométrica", "Explica el significado de lados, ángulos, signos, razones e identidades", "Usa vocabulario y simbología matemática precisa: sen(α), cos(α), fracciones verticales y equivalencias"],
+  ["Usa estrategias de orientación y cálculo", "Selecciona procedimientos para construir y verificar identidades", "Organiza pasos, ajusta decisiones y comprueba relaciones en retos graduados"],
+  ["Argumenta relaciones geométricas", "Justifica por qué una identidad o transformación es válida", "Sustenta con patrones, simetrías, equivalencias o el teorema de Pitágoras"],
+  ["PC: descomposición", "Divide el reto en partes manejables", "Separa datos, condiciones, variables y objetivo antes de responder"],
+  ["PC: abstracción", "Reconoce lo esencial y descarta datos innecesarios", "Generaliza desde el triángulo o círculo hacia fórmulas simbólicas"],
+  ["PC: patrones y generalización", "Detecta regularidades entre razones e identidades", "Formula reglas transferibles a casos nuevos"],
+  ["PC: pensamiento algorítmico", "Sigue o diseña una secuencia lógica de pasos", "Construye procedimientos verificables para llegar a la respuesta"]
 ];
 
 const $ = (id) => document.getElementById(id);
@@ -171,11 +259,16 @@ function showModal(kind, title, message, actions = [{ label: "Continuar" }]) {
 const state = {
   student: "",
   grade: "",
+  avatar: "varon",
   xp: 0,
   reserveLives: 0,
   currentZone: 0,
   currentActivity: 0,
+  musicOn: false,
+  audioCtx: null,
+  musicTimer: null,
   activeInput: null,
+  selectedOption: "",
   pasted: false,
   activityStart: Date.now(),
   startTime: Date.now(),
@@ -293,15 +386,98 @@ function resetZone(zoneIndex) {
   state.zoneLives[zone.id] = 5;
 }
 
+function totalActivities() {
+  return zones.reduce((sum, zone) => sum + zone.activities.length, 0);
+}
+
+function maxXp() {
+  return zones.reduce((sum, zone) => sum + zone.activities.reduce((zoneSum, activity) => zoneSum + activity.xp, 0), 0);
+}
+
+function score100() {
+  const progressPart = (state.completed.size / totalActivities()) * 70;
+  const xpPart = (state.xp / maxXp()) * 30;
+  return Math.min(100, Math.round(progressPart + xpPart));
+}
+
+function totalElapsedSeconds() {
+  return Math.max(0, Math.floor((Date.now() - state.startTime) / 1000));
+}
+
+function formatDuration(seconds) {
+  const value = Math.max(0, Number(seconds) || 0);
+  if (value < 60) return `${value} s`;
+  const minutes = Math.floor(value / 60);
+  const rest = value % 60;
+  return rest ? `${minutes} min ${rest} s` : `${minutes} min`;
+}
+
+function avatarSymbol() {
+  return state.avatar === "mujer" ? "♀" : "♂";
+}
+
+function ensureAudio() {
+  if (!state.audioCtx) {
+    state.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  return state.audioCtx;
+}
+
+function playTone(freq, duration = .14, type = "sine", gainValue = .05) {
+  try {
+    const audio = ensureAudio();
+    const osc = audio.createOscillator();
+    const gain = audio.createGain();
+    osc.type = type;
+    osc.frequency.value = freq;
+    gain.gain.value = gainValue;
+    osc.connect(gain);
+    gain.connect(audio.destination);
+    osc.start();
+    osc.stop(audio.currentTime + duration);
+  } catch {
+    return;
+  }
+}
+
+function playEffect(kind) {
+  if (kind === "correct") {
+    playTone(660, .1, "triangle", .06);
+    setTimeout(() => playTone(880, .12, "triangle", .05), 100);
+  } else if (kind === "error") {
+    playTone(180, .18, "sawtooth", .04);
+  } else if (kind === "reward") {
+    [523, 659, 784, 1046].forEach((freq, index) => setTimeout(() => playTone(freq, .12, "triangle", .05), index * 90));
+  }
+}
+
+function toggleMusic() {
+  state.musicOn = !state.musicOn;
+  const label = `Música quiz: ${state.musicOn ? "encendida" : "apagada"}`;
+  if ($("musicBtn")) $("musicBtn").textContent = label;
+  if ($("musicBtnMap")) $("musicBtnMap").textContent = label;
+  if (!state.musicOn) {
+    clearInterval(state.musicTimer);
+    state.musicTimer = null;
+    return;
+  }
+  const pattern = [392, 440, 523, 440, 587, 523];
+  let index = 0;
+  state.musicTimer = setInterval(() => {
+    playTone(pattern[index % pattern.length], .08, "square", .025);
+    index += 1;
+  }, 280);
+}
+
 function formulaHtml() {
   return `
     <div class="formula-grid">
-      <div class="formula"><span>sen α =</span><span class="frac"><b>opuesto</b><i>hipotenusa</i></span></div>
-      <div class="formula"><span>cos α =</span><span class="frac"><b>adyacente</b><i>hipotenusa</i></span></div>
-      <div class="formula"><span>tan α =</span><span class="frac"><b>opuesto</b><i>adyacente</i></span></div>
-      <div class="formula"><span>csc α =</span><span class="frac"><b>hipotenusa</b><i>opuesto</i></span></div>
-      <div class="formula"><span>sec α =</span><span class="frac"><b>hipotenusa</b><i>adyacente</i></span></div>
-      <div class="formula"><span>cot α =</span><span class="frac"><b>adyacente</b><i>opuesto</i></span></div>
+      <div class="formula"><span>sen(α) =</span><span class="frac"><b>opuesto</b><i>hipotenusa</i></span></div>
+      <div class="formula"><span>cos(α) =</span><span class="frac"><b>adyacente</b><i>hipotenusa</i></span></div>
+      <div class="formula"><span>tan(α) =</span><span class="frac"><b>opuesto</b><i>adyacente</i></span></div>
+      <div class="formula"><span>csc(α) =</span><span class="frac"><b>hipotenusa</b><i>opuesto</i></span></div>
+      <div class="formula"><span>sec(α) =</span><span class="frac"><b>hipotenusa</b><i>adyacente</i></span></div>
+      <div class="formula"><span>cot(α) =</span><span class="frac"><b>adyacente</b><i>opuesto</i></span></div>
     </div>
   `;
 }
@@ -328,8 +504,60 @@ function renderZoneNav() {
   });
 }
 
+function renderMap() {
+  $("mapScoreLabel").textContent = `Puntaje ${score100()}/100`;
+  $("adventureMap").innerHTML = zones.map((zone, index) => {
+    const locked = !zoneUnlocked(index);
+    const done = isZoneDone(zone);
+    const current = index === state.currentZone;
+    return `
+      <button class="map-node ${done ? "done" : ""} ${current ? "current" : ""} ${locked ? "locked" : ""}" data-map-zone="${index}" ${locked ? "disabled" : ""}>
+        <strong>${zone.short}</strong>
+        <p>${zone.tag}</p>
+        <small>${done ? "Completada" : locked ? "Bloqueada" : "Disponible"}</small>
+        ${current ? `<span class="map-avatar">${avatarSymbol()}</span>` : ""}
+      </button>
+    `;
+  }).join("");
+  document.querySelectorAll("[data-map-zone]").forEach(button => {
+    button.addEventListener("click", () => {
+      const index = Number(button.dataset.mapZone);
+      if (!zoneUnlocked(index)) return;
+      state.currentZone = index;
+      const firstPending = zones[index].activities.findIndex(activity => !state.completed.has(activity.id));
+      state.currentActivity = firstPending >= 0 ? firstPending : 0;
+      renderMap();
+    });
+  });
+}
+
+function renderLevelTrack() {
+  const zone = currentZone();
+  $("levelTrack").innerHTML = zone.activities.map((activity, index) => {
+    const previousDone = index === 0 || state.completed.has(zone.activities[index - 1].id);
+    const locked = !previousDone;
+    const done = state.completed.has(activity.id);
+    const current = index === state.currentActivity;
+    return `
+      <button class="level-card ${done ? "done" : ""} ${current ? "current" : ""} ${locked ? "locked" : ""}" data-level-index="${index}" ${locked ? "disabled" : ""}>
+        ${activity.level}<br><small>${activity.title}</small>
+      </button>
+    `;
+  }).join("");
+  document.querySelectorAll("[data-level-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      const index = Number(button.dataset.levelIndex);
+      const previousDone = index === 0 || state.completed.has(currentZone().activities[index - 1].id);
+      if (!previousDone) return;
+      state.currentActivity = index;
+      renderAll();
+    });
+  });
+}
+
 function renderAll() {
   renderZoneNav();
+  renderLevelTrack();
   renderZone();
   renderChallenge();
   renderSliders();
@@ -342,12 +570,9 @@ function renderZone() {
   $("zoneSubtitle").textContent = zone.title;
   $("zoneTag").textContent = zone.tag;
   $("zoneTitle").textContent = zone.title;
-  $("zoneTheory").innerHTML = `<p>${zone.theory}</p>${zone.id === "razones" ? formulaHtml() : ""}`;
+  $("zoneTheory").innerHTML = zone.id === "razones" ? `<p>${zone.theory}</p>` : `<p>${zone.theory}</p>`;
   $("zoneInstructions").textContent = zone.instructions;
   $("buildPrompt").textContent = zone.build;
-  $("competencyStrip").innerHTML = Object.values(capacities)
-    .map(capacity => `<span class="tag">${capacity}</span>`)
-    .join("");
   $("interactiveArea").innerHTML = `<div class="construct-card"><strong>Construcción:</strong> ${zone.build}</div>`;
   $("triangleCanvas").style.display = zone.type === "triangle" ? "block" : "none";
   updateValues();
@@ -357,12 +582,28 @@ function renderChallenge() {
   const activity = currentActivity();
   state.activityStart = Date.now();
   state.pasted = false;
+  state.selectedOption = "";
   $("challengeLevel").textContent = `Nivel ${activity.level}`;
   $("challengeTitle").textContent = activity.title;
   $("challengeText").textContent = activity.text;
   $("fractionBox").classList.toggle("hidden", !["fraction", "fractionText"].includes(activity.kind));
   $("quickButtons").classList.toggle("hidden", activity.kind !== "fraction");
   $("answerBox").classList.toggle("hidden", activity.kind !== "text");
+  $("optionBox").classList.toggle("hidden", activity.kind !== "choice");
+  $("optionBox").innerHTML = "";
+  if (activity.kind === "choice") {
+    activity.options.forEach(option => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = option;
+      button.addEventListener("click", () => {
+        state.selectedOption = option;
+        document.querySelectorAll("#optionBox button").forEach(item => item.classList.remove("selected"));
+        button.classList.add("selected");
+      });
+      $("optionBox").appendChild(button);
+    });
+  }
   $("numInput").value = "";
   $("denInput").value = "";
   $("answerInput").value = "";
@@ -506,7 +747,7 @@ function updateValues() {
 function updateStatus() {
   const sec = Math.floor((Date.now() - state.startTime) / 1000);
   $("studentLabel").textContent = state.student || "Estudiante";
-  $("xpLabel").textContent = `XP ${state.xp}`;
+  $("xpLabel").textContent = `Puntaje ${score100()}/100 | XP ${state.xp}`;
   $("livesLabel").textContent = `Vidas ${state.zoneLives[currentZone().id]}`;
   $("reserveLabel").textContent = `Reserva ${state.reserveLives}`;
   $("timeLabel").textContent = `${String(Math.floor(sec / 60)).padStart(2, "0")}:${String(sec % 60).padStart(2, "0")}`;
@@ -534,15 +775,21 @@ function validateActivity() {
     correct = answer.length > 0 &&
       activity.answers.map(normalizeMathText).some(expected => answer.includes(expected) || expected.includes(answer));
   }
+  if (activity.kind === "choice") {
+    const answer = normalizeMathText(state.selectedOption);
+    correct = answer.length > 0 &&
+      activity.answers.map(normalizeMathText).some(expected => answer.includes(expected) || expected.includes(answer));
+  }
 
   if (correct) {
     state.completed.add(activity.id);
     state.xp += activity.xp;
     recordAttempt(activity, true, activity.xp);
+    playEffect("correct");
     showModal(
       "¡Muy bien!",
       "Construcción lograda",
-      `Formaste una relación correcta y ganaste ${activity.xp} XP. Estás trabajando: ${capacities[activity.capacity]}.`,
+      `Formaste una relación correcta y ganaste ${activity.xp} XP. Sigue construyendo con calma: cada paso deja evidencia de tu razonamiento.`,
       [{ label: "Seguir", primary: true, onClick: () => {
         advanceActivity();
         saveProgress(false);
@@ -557,6 +804,7 @@ function validateActivity() {
       state.zoneLives[zoneId] = 1;
     }
     recordAttempt(activity, false, 0);
+    playEffect("error");
     if (state.zoneLives[zoneId] === 0) {
       const lostZoneIndex = state.currentZone;
       showModal(
@@ -594,6 +842,7 @@ function advanceActivity() {
   state.zoneLives[zone.id] = 5;
   const nextZone = zones.findIndex((candidate, index) => index > state.currentZone && zoneUnlocked(index));
   if (nextZone >= 0) {
+    playEffect("reward");
     showModal(
       "Zona superada",
       perfect ? "¡Zona perfecta!" : "Zona completada",
@@ -612,6 +861,7 @@ function advanceActivity() {
       ]
     );
   } else {
+    playEffect("reward");
     showModal(
       "Aventura completada",
       "Has terminado todas las zonas",
@@ -634,8 +884,12 @@ function recordAttempt(activity, correct, xpEarned) {
     nivel: activity.level,
     actividadEspecifica: activity.text,
     intentos: state.attempts[activity.id],
-    tiempo: seconds,
+    tiempoSegundos: seconds,
+    tiempo: formatDuration(seconds),
+    tiempoTotalSegundos: totalElapsedSeconds(),
+    tiempoTotal: formatDuration(totalElapsedSeconds()),
     xp: xpEarned,
+    puntaje100: score100(),
     vidasZona: state.zoneLives[zone.id],
     reserva: state.reserveLives,
     pegoTexto: state.pasted ? "Sí" : "No",
@@ -650,10 +904,14 @@ function progressPayload() {
     id: `${state.student}|${state.grade}`,
     estudiante: state.student,
     grado: state.grade,
+    avatar: state.avatar,
     xp: state.xp,
+    puntaje100: score100(),
     reserva: state.reserveLives,
     completadas: state.completed.size,
-    total: zones.reduce((sum, z) => sum + z.activities.length, 0),
+    total: totalActivities(),
+    tiempoTotalSegundos: totalElapsedSeconds(),
+    tiempoTotal: formatDuration(totalElapsedSeconds()),
     registros: state.records,
     actualizado: new Date().toLocaleString()
   };
@@ -745,7 +1003,8 @@ function allRecords() {
 
 function renderRecordsTable() {
   const rows = allRecords();
-  const headers = ["Estudiante", "Grado", "Zona", "Actividad", "Reto", "Nivel", "Actividad específica", "Intentos", "Tiempo", "XP", "Vidas", "Reserva", "Pegó", "Capacidad", "Pensamiento computacional", "Estado"];
+  renderTeacherSummary(rows);
+  const headers = ["Estudiante", "Grado", "Zona", "Actividad", "Reto", "Nivel", "Actividad específica", "Intentos", "Tiempo reto", "Tiempo total", "XP", "Puntaje 100", "Vidas", "Reserva", "Pegó", "Capacidad", "Pensamiento computacional", "Estado"];
   $("recordsTable").innerHTML = `
     <thead><tr>${headers.map(header => `<th>${header}</th>`).join("")}</tr></thead>
     <tbody>
@@ -753,11 +1012,25 @@ function renderRecordsTable() {
         <tr>
           <td>${row.estudiante}</td><td>${row.grado}</td><td>${row.zona}</td><td>${row.actividad}</td>
           <td>${row.reto}</td><td>${row.nivel}</td><td>${row.actividadEspecifica}</td><td>${row.intentos}</td>
-          <td>${row.tiempo}s</td><td>${row.xp}</td><td>${row.vidasZona}</td><td>${row.reserva}</td><td>${row.pegoTexto}</td>
+          <td>${row.tiempo || formatDuration(row.tiempoSegundos)}</td><td>${row.tiempoTotal || ""}</td><td>${row.xp}</td><td>${row.puntaje100 || ""}</td><td>${row.vidasZona}</td><td>${row.reserva}</td><td>${row.pegoTexto}</td>
           <td>${row.capacidad}</td><td>${row.pensamientoComputacional}</td><td>${row.estado}</td>
         </tr>
       `).join("") || `<tr><td colspan="${headers.length}">Aún no hay registros guardados.</td></tr>`}
     </tbody>
+  `;
+}
+
+function renderTeacherSummary(rows) {
+  const students = new Set(rows.map(row => `${row.estudiante}|${row.grado}`));
+  const totalSeconds = rows.reduce((max, row) => Math.max(max, Number(row.tiempoTotalSegundos) || 0), 0);
+  const maxScore = rows.reduce((max, row) => Math.max(max, Number(row.puntaje100) || 0), 0);
+  const totalXp = rows.reduce((sum, row) => sum + (Number(row.xp) || 0), 0);
+  $("teacherSummary").innerHTML = `
+    <div class="summary-card">Estudiantes<br>${students.size}</div>
+    <div class="summary-card">Registros<br>${rows.length}</div>
+    <div class="summary-card">Tiempo total mayor<br>${formatDuration(totalSeconds)}</div>
+    <div class="summary-card">Mejor puntaje<br>${maxScore}/100</div>
+    <div class="summary-card">XP acumulada<br>${totalXp}</div>
   `;
 }
 
@@ -811,12 +1084,34 @@ function downloadRecordsCsv() {
     showModal("Docente", "Sin registros", "Todavía no hay registros para descargar.", [{ label: "Continuar", primary: true }]);
     return;
   }
-  const headers = Object.keys(rows[0]);
+  const columns = [
+    ["fecha", "Fecha"],
+    ["estudiante", "Estudiante"],
+    ["grado", "Grado/Sección"],
+    ["zona", "Zona"],
+    ["actividad", "Actividad"],
+    ["reto", "Reto"],
+    ["nivel", "Nivel"],
+    ["actividadEspecifica", "Actividad específica"],
+    ["intentos", "Intentos"],
+    ["tiempo", "Tiempo del reto"],
+    ["tiempoTotal", "Tiempo total en simulador"],
+    ["xp", "XP ganada"],
+    ["puntaje100", "Puntaje sobre 100"],
+    ["vidasZona", "Vidas de zona"],
+    ["reserva", "Vidas extra"],
+    ["pegoTexto", "Pegó texto"],
+    ["capacidad", "Capacidad matemática"],
+    ["pensamientoComputacional", "Pensamiento computacional"],
+    ["estado", "Estado"]
+  ];
+  const clean = (value) => String(value ?? "").replace(/"/g, '""').replace(/\r?\n/g, " ");
   const csv = [
-    headers.join(","),
-    ...rows.map(row => headers.map(header => `"${String(row[header]).replace(/"/g, '""')}"`).join(","))
+    "sep=;",
+    columns.map(([, header]) => `"${clean(header)}"`).join(";"),
+    ...rows.map(row => columns.map(([key]) => `"${clean(row[key])}"`).join(";"))
   ].join("\n");
-  const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+  const blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8" });
   const link = document.createElement("a");
   link.href = URL.createObjectURL(blob);
   link.download = "reporte-mundo-trigonometrico.csv";
@@ -875,6 +1170,7 @@ function bindEvents() {
     }
     state.student = name;
     state.grade = grade;
+    state.avatar = document.querySelector('input[name="avatar"]:checked')?.value || "varon";
     $("welcomeTitle").textContent = `Bienvenido, ${name}`;
     show("welcomeScreen");
   });
@@ -901,9 +1197,22 @@ function bindEvents() {
 
   $("startBtn").addEventListener("click", () => {
     state.startTime = Date.now();
+    renderMap();
+    show("mapScreen");
+  });
+
+  $("continueZoneBtn").addEventListener("click", () => {
     show("simScreen");
     renderAll();
   });
+  $("mapBtn").addEventListener("click", () => {
+    renderMap();
+    show("mapScreen");
+  });
+  $("musicBtn").addEventListener("click", toggleMusic);
+  $("musicBtnMap").addEventListener("click", toggleMusic);
+  $("saveProgressMapBtn").addEventListener("click", () => saveProgress(true));
+  $("exportProgressMapBtn").addEventListener("click", exportProgress);
 
   $("validateBtn").addEventListener("click", validateActivity);
   $("saveProgressBtn").addEventListener("click", () => saveProgress(true));

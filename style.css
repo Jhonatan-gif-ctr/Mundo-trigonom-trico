@@ -116,6 +116,19 @@ h2 { font-size: 1.18rem; }
   margin-top: 1rem;
 }
 
+.avatar-choice {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .55rem;
+}
+
+.avatar-choice label {
+  border: 2px solid var(--ink);
+  background: #f8fafc;
+  box-shadow: 3px 3px 0 var(--shadow);
+  padding: .65rem;
+}
+
 .info-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -191,6 +204,74 @@ h2 { font-size: 1.18rem; }
 .zone-nav button.active { background: var(--yellow); }
 .zone-nav button.done { background: var(--green-soft); color: var(--green); }
 .zone-nav button.locked { background: #e5e7eb; color: #6b7280; }
+
+.level-track {
+  margin: .35rem 1rem 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: .55rem;
+}
+
+.level-card {
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--shadow);
+  background: #f8fafc;
+  padding: .6rem;
+  font-weight: 800;
+}
+
+.level-card.current { background: var(--yellow); }
+.level-card.done { background: var(--green-soft); color: var(--green); }
+.level-card.locked { background: #e5e7eb; color: #6b7280; }
+
+.map-layout {
+  padding: 1rem;
+}
+
+.map-panel {
+  min-height: calc(100vh - 130px);
+}
+
+.adventure-map {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.map-node {
+  position: relative;
+  min-height: 9rem;
+  border: 3px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--shadow);
+  background: linear-gradient(160deg, #ffffff, #e7f0ff);
+  padding: .85rem;
+}
+
+.map-node.done { background: linear-gradient(160deg, #ffffff, var(--green-soft)); }
+.map-node.current { background: linear-gradient(160deg, #fff7ed, var(--yellow)); }
+.map-node.locked { background: #e5e7eb; color: #6b7280; }
+
+.map-avatar {
+  position: absolute;
+  right: .6rem;
+  bottom: .45rem;
+  font-size: 2.5rem;
+  filter: drop-shadow(3px 3px 0 rgba(16, 33, 63, .18));
+  animation: bounce-avatar 1.5s infinite ease-in-out;
+}
+
+@keyframes bounce-avatar {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.map-actions {
+  display: flex;
+  gap: .7rem;
+  flex-wrap: wrap;
+}
 
 .workspace {
   display: grid;
@@ -300,6 +381,23 @@ h2 { font-size: 1.18rem; }
 
 .answer-field { margin-top: .7rem; }
 
+.option-box {
+  display: grid;
+  gap: .55rem;
+  margin: .75rem 0;
+}
+
+.option-box button {
+  width: 100%;
+  text-align: left;
+  background: #f8fafc;
+}
+
+.option-box button.selected {
+  background: var(--yellow);
+  transform: translate(-1px, -1px);
+}
+
 .hint {
   color: var(--muted);
   font-size: .9rem;
@@ -360,6 +458,20 @@ h2 { font-size: 1.18rem; }
   display: flex;
   gap: .7rem;
   flex-wrap: wrap;
+}
+
+.teacher-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: .6rem;
+}
+
+.summary-card {
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--shadow);
+  background: #f8fafc;
+  padding: .65rem;
+  font-weight: 800;
 }
 
 .table-wrap {
@@ -435,10 +547,11 @@ td input {
 @media (max-width: 960px) {
   .workspace { grid-template-columns: 1fr; }
   .left-scroll, .right-scroll { max-height: none; }
+  .adventure-map, .level-track, .teacher-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 660px) {
-  .info-grid, .formula-grid, .competency-strip, .quick-buttons, .symbol-buttons {
+  .info-grid, .formula-grid, .competency-strip, .quick-buttons, .symbol-buttons, .avatar-choice, .adventure-map, .level-track, .teacher-summary {
     grid-template-columns: 1fr;
   }
   .topbar {
