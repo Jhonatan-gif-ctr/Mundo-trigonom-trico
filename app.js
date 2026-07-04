@@ -134,7 +134,7 @@ function withBank() {
 
   byId.reciprocas.build = "Construye una razón y luego invierte numerador y denominador. Si el producto de dos razones recíprocas es 1, encontraste la pareja.";
   byId.reciprocas.theory = "Identidades recíprocas: una razón se transforma al intercambiar numerador y denominador.";
-  byId.reciprocas.type = "triangle";
+  byId.reciprocas.type = "cards";
   byId.reciprocas.instructions = "Construye el triángulo con los deslizadores. Primero forma una razón con lados; luego invierte la fracción para descubrir su recíproca.";
   byId.reciprocas.activities = [
     act("rec-01", "Inicio", "choice", "Balanza del elemento neutro", "Elige la pareja de bloques que al multiplicarse equilibra la balanza con valor 1.", { answers: ["y sobre r  y  r sobre y"], options: ["y sobre r  y  r sobre y", "x sobre r  y  y sobre r", "x sobre y  y  x sobre r"], capacity: "modela", ct: "Patrones" }),
@@ -568,36 +568,57 @@ function renderMap() {
   });
 }
 
+function levelGroups(zone) {
+  const names = [];
+  zone.activities.forEach(activity => {
+    if (!names.includes(activity.level)) names.push(activity.level);
+  });
+  return names.map(name => ({
+    name,
+    activities: zone.activities
+      .map((activity, index) => ({ activity, index }))
+      .filter(item => item.activity.level === name)
+  }));
+}
+
+function isLevelDone(group) {
+  return group.activities.every(item => state.completed.has(item.activity.id));
+}
+
+function isLevelUnlocked(groups, groupIndex) {
+  return groupIndex === 0 || isLevelDone(groups[groupIndex - 1]);
+}
+
 function renderLevelMap() {
   const zone = currentZone();
-  const levelPoints = [
-    [8, 68], [16, 48], [24, 62], [33, 38], [42, 54], [51, 34], [60, 54],
-    [69, 36], [78, 54], [87, 38], [82, 70], [66, 76], [48, 74], [30, 78]
-  ];
+  const groups = levelGroups(zone);
+  const levelPoints = [[18, 66], [50, 38], [82, 66]];
+  const currentGroupIndex = Math.max(0, groups.findIndex(group =>
+    group.activities.some(item => item.index === state.currentActivity)
+  ));
   $("levelMapTitle").textContent = `Mapa de niveles: ${zone.short}`;
   $("levelMapZoneName").textContent = zone.title;
-  $("levelMapZoneText").textContent = `${zone.instructions} Las preguntas finales te pedirán comunicar o argumentar lo construido.`;
-  $("levelAdventureMap").innerHTML = zone.activities.map((activity, index) => {
-    const previousDone = index === 0 || state.completed.has(zone.activities[index - 1].id);
-    const locked = !previousDone;
-    const done = state.completed.has(activity.id);
-    const current = index === state.currentActivity;
-    const [x, y] = levelPoints[index] || [50, 50];
+  $("levelMapZoneText").textContent = `${zone.instructions} Completa todos los retos de un nivel para avanzar al siguiente.`;
+  $("levelAdventureMap").innerHTML = groups.map((group, groupIndex) => {
+    const locked = !isLevelUnlocked(groups, groupIndex);
+    const done = isLevelDone(group);
+    const current = groupIndex === currentGroupIndex;
+    const [x, y] = levelPoints[groupIndex] || [50, 50];
     return `
-      <button class="level-map-node ${done ? "done" : ""} ${current ? "current" : ""} ${locked ? "locked" : ""}" style="--x:${x}%;--y:${y}%;" data-level-map-index="${index}" ${locked ? "disabled" : ""}>
-        <span class="map-number">${index + 1}</span>
-        <strong>${activity.level}</strong>
-        <small>${activity.title}</small>
+      <button class="level-map-node ${done ? "done" : ""} ${current ? "current" : ""} ${locked ? "locked" : ""}" style="--x:${x}%;--y:${y}%;" data-level-group-index="${groupIndex}" ${locked ? "disabled" : ""}>
+        <span class="map-number">${groupIndex + 1}</span>
+        <strong>${group.name}</strong>
+        <small>${group.activities.filter(item => state.completed.has(item.activity.id)).length} de ${group.activities.length} retos</small>
         ${current ? avatarHtml() : ""}
       </button>
     `;
   }).join("");
-  document.querySelectorAll("[data-level-map-index]").forEach(button => {
+  document.querySelectorAll("[data-level-group-index]").forEach(button => {
     button.addEventListener("click", () => {
-      const index = Number(button.dataset.levelMapIndex);
-      const previousDone = index === 0 || state.completed.has(zone.activities[index - 1].id);
-      if (!previousDone) return;
-      state.currentActivity = index;
+      const groupIndex = Number(button.dataset.levelGroupIndex);
+      if (!isLevelUnlocked(groups, groupIndex)) return;
+      const target = groups[groupIndex].activities.find(item => !state.completed.has(item.activity.id)) || groups[groupIndex].activities[0];
+      state.currentActivity = target.index;
       renderAll();
       show("simScreen");
     });
@@ -638,6 +659,35 @@ function renderAll() {
   updateStatus();
 }
 
+function activityEnvironmentHtml(zone, activity) {
+  if (zone.id !== "reciprocas") {
+    return `<div class="construct-card"><strong>Construcción:</strong> ${zone.build}</div>`;
+  }
+  return reciprocalEnvironmentHtml(activity);
+}
+
+function reciprocalEnvironmentHtml(activity) {
+  const frac = (top, bottom) => `<span class="mini-frac"><b>${top}</b><i>${bottom}</i></span>`;
+  const card = (text) => `<span class="math-chip">${text}</span>`;
+  const environments = {
+    "rec-01": `<div class="rec-env balance-env"><h3>Balanza del elemento neutro</h3><div class="balance"><div class="pan target">1</div><div class="beam"></div><div class="pan empty">Pareja de bloques</div></div><div class="chip-bank">${card(frac("y", "r"))}${card(frac("r", "y"))}${card(frac("x", "r"))}${card(frac("x", "y"))}</div></div>`,
+    "rec-02": `<div class="rec-env blanks-env"><h3>Construyendo la definición</h3><div class="formula-stage">n · m = <span class="blank-slot">?</span> → n = ${frac("?", "?")}</div><div class="chip-bank">${card("1")}${card("m")}${card("n")}</div></div>`,
+    "rec-03": `<div class="rec-env memory-env"><h3>Memoria de recíprocos</h3><div class="memory-grid">${card("sen(α)")}${card("csc(α)")}${card("cos(α)")}${card("sec(α)")}${card("tan(α)")}${card("cot(α)")}</div><p>Busca la pareja que se fusiona para formar 1.</p></div>`,
+    "rec-04": `<div class="rec-env intruder-env"><h3>El intruso</h3><div class="chip-bank">${card("cos(α)")}${card("sec(α)")}${card("tan(α)")}</div><p>Dos tarjetas forman pareja recíproca. Una no pertenece.</p></div>`,
+    "rec-05": `<div class="rec-env puzzle-env"><h3>Ensamblaje de fórmulas</h3><div class="puzzle-row">${card("sec(α)")}${card("=")}${card("1")}${card("sobre")}${card("cos(α)")}</div><div class="puzzle-slot">Ranura: sec(α) = ${frac("1", "cos(α)")}</div></div>`,
+    "rec-06": `<div class="rec-env wheel-env"><h3>Rueda de despejes</h3><div class="wheel">tan(α) · cot(α) = 1</div><p>Despeja cot(α): tan(α) pasa como denominador.</p></div>`,
+    "rec-07": `<div class="rec-env lab-env"><h3>Laboratorio de triángulos</h3><div class="triangle-mini"><span>x</span><span>y</span><span>r</span></div><div class="meters">${card(`tan(α) = ${frac("y", "x")}`)}${card(`cot(α) = ${frac("x", "y")}`)}${card("producto = 1")}</div></div>`,
+    "rec-08": `<div class="rec-env columns-env"><h3>Equivalencias complejas</h3><div class="two-columns"><div>${card("3 · sen(α) · csc(α)")}${card("5 · sec(α)")}</div><div>${card("3")}${card("5 sobre cos(α)")}</div></div></div>`,
+    "rec-09": `<div class="rec-env conveyor-env"><h3>Clasificador de verdades</h3><div class="conveyor">“cos(α) es recíproco de csc(α)”</div><div class="truth-boxes"><span>Verdadero</span><span>Falso</span></div></div>`,
+    "rec-10": `<div class="rec-env character-env"><h3>Corrige al personaje</h3><div class="speech">Si sen(α) vale un medio, entonces csc(α) vale menos un medio.</div><p>Usa el inverso multiplicativo, no el inverso aditivo.</p></div>`,
+    "rec-11": `<div class="rec-env crusher-env"><h3>Trituradora de expresiones</h3><div class="crusher">E = 4 · <mark>cos(α) · sec(α)</mark> + 2 → 4 · 1 + 2</div></div>`,
+    "rec-12": `<div class="rec-env bridge-env"><h3>Construcción de puentes</h3><div class="bridge"><span>1</span><span>csc(α)</span><span class="gap">puente</span><span>sen(α)</span></div><p>Construye la pieza faltante como ${frac("1", "csc(α)")}.</p></div>`,
+    "rec-13": `<div class="rec-env algorithm-env"><h3>Algoritmo verificador</h3><div class="flow">${card("Inicio")}→${card("Leer A y B")}→${card("Multiplicar")}→${card("¿Resultado = 1?")}</div></div>`,
+    "rec-14": `<div class="rec-env vault-env"><h3>Criptograma trigonométrico</h3><div class="vault">Bóveda: detecta pares recíprocos ocultos y justifica por qué se reducen a 1.</div></div>`
+  };
+  return environments[activity.id] || `<div class="construct-card"><strong>Construcción:</strong> ${activity.text}</div>`;
+}
+
 function renderZone() {
   const zone = currentZone();
   $("zoneSubtitle").textContent = zone.title;
@@ -646,7 +696,7 @@ function renderZone() {
   $("zoneTheory").innerHTML = zone.id === "razones" ? `<p>${zone.theory}</p>` : `<p>${zone.theory}</p>`;
   $("zoneInstructions").textContent = zone.instructions;
   $("buildPrompt").textContent = zone.build;
-  $("interactiveArea").innerHTML = `<div class="construct-card"><strong>Construcción:</strong> ${zone.build}</div>`;
+  $("interactiveArea").innerHTML = activityEnvironmentHtml(zone, currentActivity());
   $("triangleCanvas").style.display = zone.type === "triangle" ? "block" : "none";
   updateValues();
 }
@@ -767,8 +817,8 @@ function label(ctx, x, y, text, fill, stroke) {
 function renderSliders() {
   const zone = currentZone();
   $("sliders").innerHTML = "";
-  if (!["razones", "reciprocas"].includes(zone.id)) {
-    $("sliders").innerHTML = `<p>Esta zona usa construcción simbólica, emparejamiento y argumentación. El mapa de niveles separa cada reto para evitar saturar la pantalla.</p>`;
+  if (zone.id !== "razones") {
+    $("sliders").innerHTML = `<p>Esta zona usa un ambiente propio para cada reto. El mapa de niveles separa Inicio, Intermedio y Avanzado.</p>`;
     return;
   }
   const defs = [

@@ -481,6 +481,146 @@ h2 { font-size: 1.18rem; }
 
 .construct-card strong { color: var(--orange); }
 
+.rec-env {
+  border: 3px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--shadow);
+  padding: 1rem;
+  margin-top: .8rem;
+  min-height: 260px;
+  background:
+    radial-gradient(circle at 85% 18%, rgba(255, 224, 138, .48), transparent 8rem),
+    #f8fafc;
+}
+
+.rec-env h3 {
+  margin: 0 0 .8rem;
+  font-size: 1.15rem;
+}
+
+.math-chip {
+  display: inline-grid;
+  place-items: center;
+  min-width: 4.8rem;
+  min-height: 2.4rem;
+  border: 2px solid var(--ink);
+  background: #ffffff;
+  box-shadow: 3px 3px 0 var(--shadow);
+  padding: .4rem .55rem;
+  margin: .25rem;
+  font-family: "Cambria Math", "Times New Roman", serif;
+  font-weight: 800;
+}
+
+.mini-frac {
+  display: inline-grid;
+  text-align: center;
+  min-width: 2.6rem;
+  font-family: "Cambria Math", "Times New Roman", serif;
+}
+
+.mini-frac b {
+  border-bottom: 2px solid currentColor;
+  padding: 0 .2rem;
+}
+
+.mini-frac i {
+  font-style: normal;
+}
+
+.balance {
+  display: grid;
+  grid-template-columns: 1fr 5rem 1fr;
+  align-items: end;
+  gap: 1rem;
+  margin: .8rem 0;
+}
+
+.pan {
+  border: 3px solid var(--ink);
+  background: var(--yellow);
+  min-height: 5rem;
+  display: grid;
+  place-items: center;
+  font-size: 1.2rem;
+  font-weight: 900;
+  box-shadow: 4px 4px 0 var(--shadow);
+}
+
+.beam {
+  height: .5rem;
+  background: var(--ink);
+  transform: rotate(-4deg);
+}
+
+.blank-slot,
+.puzzle-slot,
+.wheel,
+.conveyor,
+.speech,
+.crusher,
+.vault {
+  border: 2px solid var(--ink);
+  background: #ffffff;
+  box-shadow: 3px 3px 0 var(--shadow);
+  padding: .8rem;
+  font-weight: 800;
+}
+
+.formula-stage,
+.puzzle-row,
+.chip-bank,
+.memory-grid,
+.meters,
+.flow,
+.truth-boxes,
+.bridge,
+.two-columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+  align-items: center;
+  margin: .75rem 0;
+}
+
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.two-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.truth-boxes span,
+.bridge span,
+.gap {
+  border: 2px solid var(--ink);
+  background: #dcfce7;
+  box-shadow: 3px 3px 0 var(--shadow);
+  padding: .65rem .85rem;
+  font-weight: 900;
+}
+
+.triangle-mini {
+  width: min(280px, 80%);
+  aspect-ratio: 1.6 / 1;
+  border-left: 5px solid var(--green);
+  border-bottom: 5px solid var(--purple);
+  background: linear-gradient(135deg, transparent 49%, var(--red) 50%, transparent 51%);
+  position: relative;
+  margin: 1rem auto;
+}
+
+.triangle-mini span {
+  position: absolute;
+  font-weight: 900;
+}
+
+.triangle-mini span:nth-child(1) { left: -1.2rem; top: 45%; color: var(--green); }
+.triangle-mini span:nth-child(2) { left: 45%; bottom: -1.5rem; color: var(--purple); }
+.triangle-mini span:nth-child(3) { right: 20%; top: 34%; color: var(--red); }
+
 .fraction-builder {
   background: #f8fafc;
   border: 2px solid var(--ink);
