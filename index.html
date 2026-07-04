@@ -16,7 +16,7 @@
         <p class="lead">Construye, prueba, explica y generaliza identidades trigonométricas mediante retos graduados.</p>
 
         <label class="field">
-          <span>Nombre del estudiante</span>
+          <span>Nombres y apellidos</span>
           <input id="studentName" autocomplete="name">
         </label>
 
@@ -76,7 +76,8 @@
           <p><strong>Vidas por zona:</strong> comienzas cada zona con 5 vidas. Si las pierdes, solo se reinicia esa zona, no todo tu progreso.</p>
           <p><strong>Recuperación:</strong> si completas una zona con 1, 2, 3 o 4 vidas, la siguiente zona inicia nuevamente con 5 vidas.</p>
           <p><strong>Bonificación perfecta:</strong> si completas una zona conservando las 5 vidas, además acumulas 5 vidas extra para el reto final.</p>
-          <p><strong>Tiempo y progreso:</strong> puedes guardar o enviar tu avance en cualquier momento, aunque no hayas terminado todas las zonas.</p>
+          <p><strong>Tiempo y progreso:</strong> puedes enviar tu avance en cualquier momento, aunque no hayas terminado todas las zonas.</p>
+          <p><strong>Importante:</strong> si cierras o recargas la página antes de enviar tu progreso, podrías perder el avance de esta sesión.</p>
         </div>
 
         <button class="primary" id="startBtn">Comenzar aventura</button>
@@ -101,8 +102,8 @@
           <div class="adventure-map" id="adventureMap"></div>
           <div class="map-actions">
             <button class="primary" id="continueZoneBtn">Ver niveles de la zona actual</button>
-            <button type="button" id="saveProgressMapBtn">Guardar progreso</button>
             <button type="button" id="exportProgressMapBtn">Enviar progreso</button>
+            <button type="button" id="viewGradeMapBtn">Ver nota</button>
           </div>
         </article>
       </section>
@@ -116,6 +117,7 @@
         </div>
         <div class="status">
           <button type="button" id="backToWorldMapBtn">Mapa general</button>
+          <button type="button" id="viewGradeLevelBtn">Ver nota</button>
           <button type="button" id="openCurrentActivityBtn" class="primary">Entrar al nivel actual</button>
         </div>
       </header>
@@ -229,7 +231,6 @@
 
           <section class="panel progress-card">
             <h2>Cierre y envío</h2>
-            <button type="button" id="saveProgressBtn">Guardar progreso</button>
             <button type="button" id="exportProgressBtn">Enviar progreso</button>
             <button type="button" id="viewGradeBtn">Ver nota docente</button>
           </section>

@@ -312,6 +312,16 @@ h2 { font-size: 1.18rem; }
 .map-node.locked,
 .level-map-node.locked { background: #e5e7eb; color: #6b7280; }
 
+.map-node.construction {
+  background: repeating-linear-gradient(
+    135deg,
+    #fff7ed,
+    #fff7ed 10px,
+    #fde68a 10px,
+    #fde68a 20px
+  );
+}
+
 .map-number {
   display: inline-grid;
   place-items: center;
@@ -334,7 +344,7 @@ h2 { font-size: 1.18rem; }
   min-height: 4.4rem;
   z-index: 4;
   filter: drop-shadow(3px 3px 0 rgba(16, 33, 63, .24));
-  animation: avatar-step 1.25s infinite ease-in-out;
+  animation: avatar-float 2.8s infinite ease-in-out;
 }
 
 .avatar-head {
@@ -373,9 +383,9 @@ h2 { font-size: 1.18rem; }
   line-height: 1;
 }
 
-@keyframes avatar-step {
-  0%, 100% { transform: translateY(0) rotate(-2deg); }
-  50% { transform: translateY(-7px) rotate(2deg); }
+@keyframes avatar-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
 }
 
 .map-actions {

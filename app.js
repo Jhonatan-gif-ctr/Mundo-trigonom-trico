@@ -111,7 +111,7 @@ const zones = [
 function withBank() {
   const byId = Object.fromEntries(zones.map(zone => [zone.id, zone]));
   const act = (id, level, kind, title, text, extra = {}) => ({
-    id, level, kind, title, text, xp: level === "Básico" ? 12 : level === "Intermedio" ? 16 : 20,
+    id, level, kind, title, text, xp: ["Inicio", "Básico"].includes(level) ? 12 : level === "Intermedio" ? 16 : 20,
     capacity: extra.capacity || "comunica",
     ct: extra.ct || "Patrones",
     ...extra
@@ -137,15 +137,20 @@ function withBank() {
   byId.reciprocas.type = "triangle";
   byId.reciprocas.instructions = "Construye el triángulo con los deslizadores. Primero forma una razón con lados; luego invierte la fracción para descubrir su recíproca.";
   byId.reciprocas.activities = [
-    act("rec-b1", "Básico", "fraction", "Construye csc(α)", "Desliza los catetos y forma csc(α) con lados del triángulo.", { ratio: "csc", capacity: "modela" }),
-    act("rec-b2", "Básico", "fraction", "Construye sec(α)", "Desliza los catetos y forma sec(α) con lados del triángulo.", { ratio: "sec", capacity: "modela" }),
-    act("rec-b3", "Básico", "fraction", "Construye cot(α)", "Desliza los catetos y forma cot(α) con lados del triángulo.", { ratio: "cot", capacity: "modela" }),
-    act("rec-i1", "Intermedio", "choice", "Empareja recíprocas", "Elige la recíproca de sen(α).", { answers: ["csc"], options: ["csc(α)", "sec(α)", "cot(α)"], capacity: "comunica" }),
-    act("rec-i2", "Intermedio", "choice", "Empareja recíprocas", "Elige la recíproca de cos(α).", { answers: ["sec"], options: ["csc(α)", "sec(α)", "cot(α)"], capacity: "comunica" }),
-    act("rec-i3", "Intermedio", "choice", "Empareja recíprocas", "Elige la recíproca de tan(α).", { answers: ["cot"], options: ["sen(α)", "cot(α)", "sec(α)"], capacity: "comunica" }),
-    act("rec-a1", "Avanzado", "text", "Comunica", "Escribe qué razón se obtiene al invertir sen(α).", { answers: ["csc", "csc(α)", "cosecante"], capacity: "comunica" }),
-    act("rec-a2", "Avanzado", "text", "Argumenta", "Si una razón y su recíproca se multiplican, ¿qué valor se obtiene?", { answers: ["1", "unidad"], capacity: "argumenta" }),
-    act("rec-a3", "Avanzado", "choice", "Generaliza", "Elige la afirmación que representa una identidad recíproca.", { answers: ["sec"], options: ["sec(α) · cos(α) = 1", "sen(α) + csc(α) = 1", "tan(α) - cot(α) = 1"], capacity: "argumenta", ct: "Generalización" })
+    act("rec-01", "Inicio", "choice", "Balanza del elemento neutro", "Elige la pareja de bloques que al multiplicarse equilibra la balanza con valor 1.", { answers: ["y sobre r  y  r sobre y"], options: ["y sobre r  y  r sobre y", "x sobre r  y  y sobre r", "x sobre y  y  x sobre r"], capacity: "modela", ct: "Patrones" }),
+    act("rec-02", "Inicio", "fractionText", "Construyendo la definición", "Completa la regla del inverso: si n · m = 1, entonces n es una fracción con 1 arriba y m abajo.", { num: ["1"], den: ["m"], capacity: "modela", ct: "Abstracción" }),
+    act("rec-03", "Inicio", "choice", "Memoria de recíprocos", "Empareja la tarjeta sen(α) con su recíproca.", { answers: ["csc"], options: ["csc(α)", "sec(α)", "cot(α)"], capacity: "comunica", ct: "Patrones" }),
+    act("rec-04", "Inicio", "choice", "El intruso", "En el grupo cos(α), sec(α), tan(α), elimina la tarjeta que no pertenece a la pareja recíproca.", { answers: ["tan"], options: ["cos(α)", "sec(α)", "tan(α)"], capacity: "comunica", ct: "Descomposición" }),
+    act("rec-05", "Inicio", "choice", "Ensamblaje de fórmulas", "Arma la igualdad recíproca correcta para sec(α).", { answers: ["sec(α) = 1 sobre cos(α)"], options: ["sec(α) = 1 sobre cos(α)", "sec(α) = 1 sobre sen(α)", "sec(α) = 1 sobre tan(α)"], capacity: "estrategias", ct: "Pensamiento algorítmico" }),
+    act("rec-06", "Inicio", "fractionText", "Rueda de despejes", "Si tan(α) · cot(α) = 1, despeja cot(α) como fracción.", { num: ["1"], den: ["tan", "tanα", "tan(α)"], capacity: "estrategias", ct: "Pensamiento algorítmico" }),
+    act("rec-07", "Intermedio", "fraction", "Laboratorio de triángulos", "Desliza los catetos y construye cot(α), la recíproca de tan(α), con lados del triángulo.", { ratio: "cot", capacity: "modela", ct: "Patrones" }),
+    act("rec-08", "Intermedio", "choice", "Equivalencias complejas", "Empareja la expresión 3 · sen(α) · csc(α) con su forma reducida.", { answers: ["3"], options: ["3", "3sen(α)", "csc(α)"], capacity: "modela", ct: "Abstracción" }),
+    act("rec-09", "Intermedio", "choice", "Clasificador de verdades", "Clasifica: cos(α) es el recíproco de csc(α).", { answers: ["falso"], options: ["Verdadero", "Falso"], capacity: "comunica", ct: "Patrones" }),
+    act("rec-10", "Intermedio", "text", "Corrige al personaje", "El personaje dice: si sen(α) vale un medio, entonces csc(α) vale menos un medio. Escribe el valor correcto de csc(α).", { answers: ["2"], capacity: "comunica", ct: "Abstracción" }),
+    act("rec-11", "Intermedio", "text", "Trituradora de expresiones", "Reduce E = 4 · cos(α) · sec(α) + 2. Escribe el valor final.", { answers: ["6"], capacity: "estrategias", ct: "Pensamiento algorítmico" }),
+    act("rec-12", "Intermedio", "fractionText", "Construcción de puentes", "Si solo tienes 1 y csc(α), construye sen(α) como fracción para completar el puente.", { num: ["1"], den: ["csc", "cscα", "csc(α)"], capacity: "estrategias", ct: "Pensamiento algorítmico" }),
+    act("rec-13", "Avanzado", "choice", "Algoritmo verificador", "Elige la secuencia que permite decidir si dos razones son recíprocas.", { answers: ["multiplicar"], options: ["Leer A y B → multiplicar A · B → comparar con 1", "Leer A y B → sumar A + B → comparar con 1", "Leer A y B → restar A - B → comparar con 0"], capacity: "argumenta", ct: "Pensamiento algorítmico" }),
+    act("rec-14", "Avanzado", "text", "Argumenta la regla", "Justifica en una frase breve por qué dos razones recíprocas producen 1 al multiplicarse.", { answers: ["inverso", "multiplicativo", "producto", "1", "unidad"], capacity: "argumenta", ct: "Generalización" })
   ];
 
   byId.cociente.build = "Compara dos razones ya construidas. Al dividir seno entre coseno aparece tangente; al invertir ese cociente aparece cotangente.";
@@ -376,7 +381,12 @@ function finalUnlocked() {
   return zones.filter(zone => !zone.final).every(isZoneDone);
 }
 
+function isConstructionZone(zone) {
+  return zone.id === "cociente";
+}
+
 function zoneUnlocked(index) {
+  if (isConstructionZone(zones[index])) return false;
   if (index === 0) return true;
   if (zones[index].final) return finalUnlocked();
   return isZoneDone(zones[index - 1]);
@@ -526,15 +536,16 @@ function renderMap() {
   $("mapScoreLabel").textContent = `Puntaje ${score100()}/100`;
   $("adventureMap").innerHTML = zones.map((zone, index) => {
     const locked = !zoneUnlocked(index);
+    const construction = isConstructionZone(zone);
     const done = isZoneDone(zone);
     const current = index === state.currentZone;
     const [x, y] = mapPoints[index] || [50, 50];
     return `
-      <button class="map-node ${done ? "done" : ""} ${current ? "current" : ""} ${locked ? "locked" : ""}" style="--x:${x}%;--y:${y}%;" data-map-zone="${index}" ${locked ? "disabled" : ""}>
+      <button class="map-node ${done ? "done" : ""} ${current ? "current" : ""} ${locked ? "locked" : ""} ${construction ? "construction" : ""}" style="--x:${x}%;--y:${y}%;" data-map-zone="${index}" ${locked && !construction ? "disabled" : ""}>
         <span class="map-number">${index + 1}</span>
         <strong>${zone.short}</strong>
         <p>${zone.tag}</p>
-        <small>${done ? "Completada" : locked ? "Bloqueada" : "Disponible"}</small>
+        <small>${construction ? "En construcción" : done ? "Completada" : locked ? "Bloqueada" : "Disponible"}</small>
         ${current ? avatarHtml() : ""}
       </button>
     `;
@@ -542,6 +553,10 @@ function renderMap() {
   document.querySelectorAll("[data-map-zone]").forEach(button => {
     button.addEventListener("click", () => {
       const index = Number(button.dataset.mapZone);
+      if (isConstructionZone(zones[index])) {
+        showModal("Zona en construcción", "Cociente estará disponible pronto", "Por ahora nos concentraremos en completar y revisar la Zona 2: Identidades recíprocas.", [{ label: "Entendido", primary: true }]);
+        return;
+      }
       if (!zoneUnlocked(index)) return;
       state.currentZone = index;
       const firstPending = zones[index].activities.findIndex(activity => !state.completed.has(activity.id));
@@ -556,7 +571,8 @@ function renderMap() {
 function renderLevelMap() {
   const zone = currentZone();
   const levelPoints = [
-    [10, 62], [20, 44], [31, 58], [42, 34], [52, 52], [62, 30], [72, 52], [82, 38], [90, 62]
+    [8, 68], [16, 48], [24, 62], [33, 38], [42, 54], [51, 34], [60, 54],
+    [69, 36], [78, 54], [87, 38], [82, 70], [66, 76], [48, 74], [30, 78]
   ];
   $("levelMapTitle").textContent = `Mapa de niveles: ${zone.short}`;
   $("levelMapZoneName").textContent = zone.title;
@@ -848,9 +864,16 @@ function validateActivity() {
       "Construcción lograda",
       `Formaste una relación correcta y ganaste ${activity.xp} XP. Sigue construyendo con calma: cada paso deja evidencia de tu razonamiento.`,
       [{ label: "Seguir", primary: true, onClick: () => {
+        const previousZone = state.currentZone;
+        const previousActivity = state.currentActivity;
         advanceActivity();
         saveProgress(false);
-        renderAll();
+        if (state.currentZone === previousZone && state.currentActivity !== previousActivity) {
+          renderLevelMap();
+          show("levelMapScreen");
+        } else {
+          renderAll();
+        }
       }}]
     );
   } else {
@@ -918,6 +941,17 @@ function advanceActivity() {
           show("levelMapScreen");
         }}
       ]
+    );
+  } else if (zones.some((candidate, index) => index > state.currentZone && isConstructionZone(candidate))) {
+    playEffect("reward");
+    showModal(
+      "Avance guardado",
+      "Llegaste al límite del avance disponible",
+      "La siguiente zona es Cociente y está en construcción. Por ahora, revisaremos con más detalle las identidades recíprocas.",
+      [{ label: "Volver al mapa", primary: true, onClick: () => {
+        renderMap();
+        show("mapScreen");
+      }}]
     );
   } else {
     playEffect("reward");
@@ -1062,9 +1096,38 @@ function allRecords() {
 
 function renderRecordsTable() {
   const rows = allRecords();
+  const sessions = JSON.parse(localStorage.getItem("mt_sessions") || "[]");
   renderTeacherSummary(rows);
+  $("recordsTable").innerHTML = `
+    <thead><tr><th>Estudiante</th><th>Grado/Sección</th><th>Avance</th><th>Puntaje</th><th>Tiempo total</th><th>Progreso individual</th></tr></thead>
+    <tbody>
+      ${sessions.map(session => `
+        <tr>
+          <td>${session.estudiante}</td>
+          <td>${session.grado}</td>
+          <td>${session.completadas}/${session.total}</td>
+          <td>${session.puntaje100 || 0}/100</td>
+          <td>${session.tiempoTotal || ""}</td>
+          <td><button data-progress-key="${encodeURIComponent(session.id)}">Ver progreso</button></td>
+        </tr>
+      `).join("") || `<tr><td colspan="6">Aún no hay estudiantes registrados.</td></tr>`}
+    </tbody>
+  `;
+  document.querySelectorAll("[data-progress-key]").forEach(button => {
+    button.addEventListener("click", () => renderIndividualProgress(decodeURIComponent(button.dataset.progressKey)));
+  });
+}
+
+function renderIndividualProgress(sessionId) {
+  const sessions = JSON.parse(localStorage.getItem("mt_sessions") || "[]");
+  const session = sessions.find(item => item.id === sessionId);
+  const rows = session?.registros || [];
   const headers = ["Estudiante", "Grado", "Zona", "Actividad", "Reto", "Nivel", "Actividad específica", "Intentos", "Tiempo reto", "Tiempo total", "XP", "Puntaje 100", "Vidas", "Reserva", "Pegó", "Capacidad", "Pensamiento computacional", "Estado"];
   $("recordsTable").innerHTML = `
+    <caption style="caption-side: top; text-align: left; padding: .55rem; font-weight: 900;">
+      Progreso individual: ${session?.estudiante || ""} ${session?.grado ? `(${session.grado})` : ""}
+      <button type="button" id="backStudentListBtn" style="margin-left:.8rem;">Volver a la lista</button>
+    </caption>
     <thead><tr>${headers.map(header => `<th>${header}</th>`).join("")}</tr></thead>
     <tbody>
       ${rows.map(row => `
@@ -1077,6 +1140,7 @@ function renderRecordsTable() {
       `).join("") || `<tr><td colspan="${headers.length}">Aún no hay registros guardados.</td></tr>`}
     </tbody>
   `;
+  $("backStudentListBtn").addEventListener("click", renderRecordsTable);
 }
 
 function renderTeacherSummary(rows) {
@@ -1278,11 +1342,11 @@ function bindEvents() {
   });
   $("musicBtn").addEventListener("click", toggleMusic);
   $("musicBtnMap").addEventListener("click", toggleMusic);
-  $("saveProgressMapBtn").addEventListener("click", () => saveProgress(true));
   $("exportProgressMapBtn").addEventListener("click", exportProgress);
+  $("viewGradeMapBtn").addEventListener("click", viewGrade);
+  $("viewGradeLevelBtn").addEventListener("click", viewGrade);
 
   $("validateBtn").addEventListener("click", validateActivity);
-  $("saveProgressBtn").addEventListener("click", () => saveProgress(true));
   $("exportProgressBtn").addEventListener("click", exportProgress);
   $("viewGradeBtn").addEventListener("click", viewGrade);
   $("databaseTab").addEventListener("click", () => {
