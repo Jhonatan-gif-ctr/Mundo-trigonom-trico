@@ -663,12 +663,12 @@ function activityEnvironmentHtml(zone, activity) {
   if (zone.id !== "reciprocas") {
     return `<div class="construct-card"><strong>Construcción:</strong> ${zone.build}</div>`;
   }
-  return reciprocalEnvironmentHtml(activity);
+  return `${reciprocalEnvironmentHtml(activity)}<div class="activity-instruction"><strong>Indicación del reto:</strong> ${activity.text}</div><div id="zone2InlineControls" class="inline-controls panel"></div>`;
 }
 
 function reciprocalEnvironmentHtml(activity) {
   const frac = (top, bottom) => `<span class="mini-frac"><b>${top}</b><i>${bottom}</i></span>`;
-  const card = (text) => `<span class="math-chip">${text}</span>`;
+  const card = (text) => `<span class="math-chip" draggable="true">${text}</span>`;
   const environments = {
     "rec-01": `<div class="rec-env balance-env"><h3>Balanza del elemento neutro</h3><div class="balance"><div class="pan target">1</div><div class="beam"></div><div class="pan empty">Pareja de bloques</div></div><div class="chip-bank">${card(frac("y", "r"))}${card(frac("r", "y"))}${card(frac("x", "r"))}${card(frac("x", "y"))}</div></div>`,
     "rec-02": `<div class="rec-env blanks-env"><h3>Construyendo la definición</h3><div class="formula-stage">n · m = <span class="blank-slot">?</span> → n = ${frac("?", "?")}</div><div class="chip-bank">${card("1")}${card("m")}${card("n")}</div></div>`,
@@ -688,8 +688,42 @@ function reciprocalEnvironmentHtml(activity) {
   return environments[activity.id] || `<div class="construct-card"><strong>Construcción:</strong> ${activity.text}</div>`;
 }
 
+function placeChallengeControls() {
+  const controls = $("challengeControls");
+  const target = currentZone().id === "reciprocas" ? $("zone2InlineControls") : $("challengeCard");
+  if (controls && target && controls.parentElement !== target) {
+    target.appendChild(controls);
+  }
+}
+
+function bindMovableCards() {
+  const area = $("interactiveArea");
+  if (!area) return;
+  area.querySelectorAll(".math-chip").forEach((chip, index) => {
+    chip.dataset.dragId = `chip-${index}`;
+    chip.addEventListener("click", () => chip.classList.toggle("selected"));
+    chip.addEventListener("dragstart", event => {
+      chip.classList.add("dragging");
+      event.dataTransfer.setData("text/plain", chip.dataset.dragId);
+    });
+    chip.addEventListener("dragend", () => chip.classList.remove("dragging"));
+  });
+  area.querySelectorAll(".rec-env, .blank-slot, .puzzle-slot, .pan.empty, .truth-boxes, .bridge, .flow").forEach(zone => {
+    zone.addEventListener("dragover", event => event.preventDefault());
+    zone.addEventListener("drop", event => {
+      event.preventDefault();
+      const chip = area.querySelector(`[data-drag-id="${event.dataTransfer.getData("text/plain")}"]`);
+      if (chip) {
+        zone.appendChild(chip);
+        chip.classList.add("selected");
+      }
+    });
+  });
+}
+
 function renderZone() {
   const zone = currentZone();
+  document.body.classList.toggle("reciprocal-mode", zone.id === "reciprocas");
   $("zoneSubtitle").textContent = zone.title;
   $("zoneTag").textContent = zone.tag;
   $("zoneTitle").textContent = zone.title;
@@ -697,6 +731,7 @@ function renderZone() {
   $("zoneInstructions").textContent = zone.instructions;
   $("buildPrompt").textContent = zone.build;
   $("interactiveArea").innerHTML = activityEnvironmentHtml(zone, currentActivity());
+  bindMovableCards();
   $("triangleCanvas").style.display = zone.type === "triangle" ? "block" : "none";
   updateValues();
 }
@@ -727,6 +762,7 @@ function renderChallenge() {
       $("optionBox").appendChild(button);
     });
   }
+  placeChallengeControls();
   $("numInput").value = "";
   $("denInput").value = "";
   $("answerInput").value = "";
@@ -1399,6 +1435,10 @@ function bindEvents() {
   $("validateBtn").addEventListener("click", validateActivity);
   $("exportProgressBtn").addEventListener("click", exportProgress);
   $("viewGradeBtn").addEventListener("click", viewGrade);
+  $("closeActivityBtn").addEventListener("click", () => {
+    renderLevelMap();
+    show("levelMapScreen");
+  });
   $("databaseTab").addEventListener("click", () => {
     $("databasePanel").classList.remove("hidden");
     $("rubricPanel").classList.add("hidden");

@@ -177,46 +177,48 @@
             <p id="zoneInstructions"></p>
           </section>
 
-          <section class="panel challenge-card">
+          <section class="panel challenge-card" id="challengeCard">
             <p class="eyebrow" id="challengeLevel">Nivel</p>
             <h2 id="challengeTitle">Reto</h2>
             <p id="challengeText"></p>
 
-            <div id="fractionBox" class="fraction-builder">
-              <label>
-                <span>Numerador</span>
-                <input id="numInput" autocomplete="off">
+            <div id="challengeControls">
+              <div id="fractionBox" class="fraction-builder">
+                <label>
+                  <span>Numerador</span>
+                  <input id="numInput" autocomplete="off">
+                </label>
+                <div class="fraction-line"></div>
+                <label>
+                  <span>Denominador</span>
+                  <input id="denInput" autocomplete="off">
+                </label>
+              </div>
+
+              <label id="answerBox" class="field answer-field">
+                <span>Respuesta o explicación breve</span>
+                <input id="answerInput" autocomplete="off">
               </label>
-              <div class="fraction-line"></div>
-              <label>
-                <span>Denominador</span>
-                <input id="denInput" autocomplete="off">
-              </label>
+
+              <div id="optionBox" class="option-box"></div>
+
+              <div class="symbol-buttons">
+                <button type="button" data-symbol="√2">Insertar √2</button>
+                <button type="button" data-symbol="√3">Insertar √3</button>
+              </div>
+
+              <div class="quick-buttons" id="quickButtons">
+                <button data-fill="num" data-side="opuesto">↑ opuesto</button>
+                <button data-fill="num" data-side="adyacente">↑ adyacente</button>
+                <button data-fill="num" data-side="hipotenusa">↑ hipotenusa</button>
+                <button data-fill="den" data-side="opuesto">↓ opuesto</button>
+                <button data-fill="den" data-side="adyacente">↓ adyacente</button>
+                <button data-fill="den" data-side="hipotenusa">↓ hipotenusa</button>
+              </div>
+
+              <p class="hint">Texto pegado: rojo. Texto escrito: azul. El reporte docente registra este dato.</p>
+              <button class="primary" id="validateBtn">Validar reto</button>
             </div>
-
-            <label id="answerBox" class="field answer-field">
-              <span>Respuesta o explicación breve</span>
-              <input id="answerInput" autocomplete="off">
-            </label>
-
-            <div id="optionBox" class="option-box"></div>
-
-            <div class="symbol-buttons">
-              <button type="button" data-symbol="√2">Insertar √2</button>
-              <button type="button" data-symbol="√3">Insertar √3</button>
-            </div>
-
-            <div class="quick-buttons" id="quickButtons">
-              <button data-fill="num" data-side="opuesto">↑ opuesto</button>
-              <button data-fill="num" data-side="adyacente">↑ adyacente</button>
-              <button data-fill="num" data-side="hipotenusa">↑ hipotenusa</button>
-              <button data-fill="den" data-side="opuesto">↓ opuesto</button>
-              <button data-fill="den" data-side="adyacente">↓ adyacente</button>
-              <button data-fill="den" data-side="hipotenusa">↓ hipotenusa</button>
-            </div>
-
-            <p class="hint">Texto pegado: rojo. Texto escrito: azul. El reporte docente registra este dato.</p>
-            <button class="primary" id="validateBtn">Validar reto</button>
           </section>
 
           <section class="panel values-card">
@@ -231,6 +233,7 @@
 
           <section class="panel progress-card">
             <h2>Cierre y envío</h2>
+            <button type="button" id="closeActivityBtn">Cerrar actividad</button>
             <button type="button" id="exportProgressBtn">Enviar progreso</button>
             <button type="button" id="viewGradeBtn">Ver nota docente</button>
           </section>

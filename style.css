@@ -401,6 +401,22 @@ h2 { font-size: 1.18rem; }
   padding: 1rem;
 }
 
+.reciprocal-mode .workspace {
+  grid-template-columns: minmax(0, 1fr) 280px;
+}
+
+.reciprocal-mode .right-scroll > :not(.progress-card) {
+  display: none;
+}
+
+.reciprocal-mode .progress-card #viewGradeBtn {
+  display: none;
+}
+
+.reciprocal-mode .activity-card {
+  min-height: calc(100vh - 190px);
+}
+
 .left-scroll, .right-scroll {
   max-height: calc(100vh - 160px);
   overflow: auto;
@@ -509,6 +525,37 @@ h2 { font-size: 1.18rem; }
   margin: .25rem;
   font-family: "Cambria Math", "Times New Roman", serif;
   font-weight: 800;
+  cursor: grab;
+  user-select: none;
+  transition: transform .18s ease, background .18s ease;
+}
+
+.math-chip:active,
+.math-chip.dragging {
+  cursor: grabbing;
+  transform: scale(1.05);
+}
+
+.math-chip.selected {
+  background: var(--yellow);
+  transform: translateY(-3px);
+}
+
+.activity-instruction,
+.inline-controls {
+  margin-top: .9rem;
+}
+
+.activity-instruction {
+  border: 2px solid var(--ink);
+  background: #fff7ed;
+  box-shadow: 3px 3px 0 var(--shadow);
+  padding: .75rem;
+  font-weight: 700;
+}
+
+.inline-controls {
+  background: #ffffff;
 }
 
 .mini-frac {
